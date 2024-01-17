@@ -95,10 +95,7 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
             StartCoroutine(RunSpawner());
         }
     }
-    //private bool AnimacionCompleta()
-    //{
 
-    //}
     public bool EnemyisAlive()
     {
         

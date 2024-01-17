@@ -1,11 +1,11 @@
-//using EasyTransition;
+using EasyTransition;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AdelantarTiempoMaquina : MonoBehaviour
 {
-    //public TransitionSettings Transicion;
+    public TransitionSettings Transicion;
     public float TiempoDemora;
 
     private void OnEnable()
@@ -16,10 +16,10 @@ public class AdelantarTiempoMaquina : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //var TManager = TransitionManager.Instance();
+            var TManager = TransitionManager.Instance();
 
-            //TManager.onTransitionCutPointReached += DiaNocheManager.Instance.AvanzarDia;
-            //TransitionManager.Instance().Transition(Transicion, TiempoDemora);
+            TManager.onTransitionCutPointReached += DiaNocheManager.Instance.AvanzarDia;
+            TransitionManager.Instance().Transition(Transicion, TiempoDemora);
 
         }
     }
