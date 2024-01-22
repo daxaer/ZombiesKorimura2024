@@ -93,11 +93,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8916261644008970771}
-  - component: {fileID: 8916261644008970774}
   - component: {fileID: 8916261644008970772}
   - component: {fileID: 8916261644008970770}
   - component: {fileID: 8916261644008970781}
   - component: {fileID: 2432174052516739597}
+  - component: {fileID: 7672904304312710856}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -123,27 +123,6 @@ Transform:
   - {fileID: 3657328206102960206}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8916261644008970774
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8916261644008970773}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 1, z: 0.6}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8916261644008970772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,8 +193,8 @@ MonoBehaviour:
   _statsPersonaje:
     _vidaMax: 100
     _vidaActual: 0
-    _velocidadMax: 800
-    _velocidadMovimiento: 200
+    _velocidadMax: 4
+    _velocidadMovimiento: 2
     _dineroActual: 0
     _dineroInicial: 100000
     _experienciaPorZombieGanada: 30
@@ -223,6 +202,29 @@ MonoBehaviour:
     _armasTotales: 2
   _idPersonaje: Humano
   _posicionArma: {fileID: 8656032664645088986}
+--- !u!136 &7672904304312710856
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916261644008970773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2817303
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: -0.07}
 --- !u!1 &8916261645273105321
 GameObject:
   m_ObjectHideFlags: 0

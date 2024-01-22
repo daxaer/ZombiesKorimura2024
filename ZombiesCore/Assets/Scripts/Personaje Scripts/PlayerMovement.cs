@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMax * Time.fixedDeltaTime);
+                _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMax);
                 _currentStamina -= Time.fixedDeltaTime;
             }
         }
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
                 _delayRun = 2f;
                 _rechargeRun = true;
             }
-            _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMovimiento * Time.fixedDeltaTime);
+            _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMovimiento);
             _currentStamina += Time.fixedDeltaTime;
             _currentStamina = Mathf.Min(_currentStamina, _maXStamina);
             if (_currentStamina <= 0 && !_rechargeRun)
