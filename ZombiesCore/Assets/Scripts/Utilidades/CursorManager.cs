@@ -11,7 +11,7 @@ public class CursorManager : Singleton<CursorManager>
     private bool _recargando;
     public bool Recargando { get { return _recargando; } set { _recargando = value; } }
     public LayerMask LayerSuelo;
-    
+
     private void Start()
     {
         Cursor.SetCursor(_cursorTexture[0], new Vector2(16, 16), CursorMode.Auto);

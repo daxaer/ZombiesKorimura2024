@@ -44,6 +44,22 @@ public class InputManagerControls : MonoBehaviour
         controles.Gameplay.Action.canceled += ActionPlayer;
         controles.Gameplay.Run.performed += RunPlayer;
         controles.Gameplay.Run.canceled += RunPlayer;
+        controles.Gameplay.CambiarCamara.performed += CambiarCamarasAccion;
+        controles.Gameplay.CambiarCamara.canceled += CambiarCamarasAccion;
+    }
+
+    private void CambiarCamarasAccion(InputAction.CallbackContext context)
+    {
+        var cambiarCamaraPresionado = context.ReadValueAsButton();
+        if (cambiarCamaraPresionado)
+        {
+            var camera3eraPersona = CambiadorCamaras.TerceraPersonaCamara;
+            var cameraPrimeraPersona = CambiadorCamaras.PrimeraPersonaCamara;
+
+            CambiadorCamaras.CambiarCamara(CambiadorCamaras.EstaCamaraActiva(camera3eraPersona) ? cameraPrimeraPersona : camera3eraPersona);
+            
+        }
+
     }
 
     private void ActionPlayer(InputAction.CallbackContext obj)
@@ -70,7 +86,7 @@ public class InputManagerControls : MonoBehaviour
     {
         var movementDir = obj.ReadValue<Vector2>();
         _playerMovement.AsignarDireccion(movementDir);
-        
+
     }
 
     private void OnDisable()
@@ -82,6 +98,8 @@ public class InputManagerControls : MonoBehaviour
         controles.Gameplay.Action.canceled -= ActionPlayer;
         controles.Gameplay.Run.performed -= RunPlayer;
         controles.Gameplay.Run.canceled -= RunPlayer;
+        controles.Gameplay.CambiarCamara.performed -= CambiarCamarasAccion;
+        controles.Gameplay.CambiarCamara.canceled -= CambiarCamarasAccion;
     }
 
 
@@ -95,7 +113,7 @@ public class InputManagerControls : MonoBehaviour
 
         _interactuando = true;
         interactuableColision = other;
-        other.GetComponent<Interactuable>().ActivarUI(_interactuando);
+        other.GetComponent<Interactuable>()?.ActivarUI(_interactuando);
         other.GetComponent<Interactuable>().Personaje = _personaje;
     }
 

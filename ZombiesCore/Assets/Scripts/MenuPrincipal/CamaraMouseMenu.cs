@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class CámaraMouseMenu : MonoBehaviour
+public class CamaraMouseMenu : MonoBehaviour
 {
     Vector2 _startpos;
 

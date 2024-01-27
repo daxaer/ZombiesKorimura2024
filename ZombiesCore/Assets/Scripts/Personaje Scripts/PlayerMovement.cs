@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float LastPositionTime;
     private int MaxQueueSize;
 
+    [SerializeField] private float _maxStamina;
     private Rigidbody _playerRigidbody;
     private Vector3 _myDirection;
     private Personaje _miJugador;
@@ -18,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _rechargeRun;
     private float _delayRun;
     private float _currentStamina;
-    private float _maXStamina;
 
     public Vector3 AverageVelocity
     {
@@ -42,8 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _rechargeRun = false;
-        _maXStamina = 5;
-        _currentStamina = 5;
+        _currentStamina = _maxStamina;
         _playerRigidbody = GetComponent<Rigidbody>();
         _myDirection = Vector3.zero;
         _miJugador = GetComponent<Personaje>();
@@ -82,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             }
             _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMovimiento);
             _currentStamina += Time.fixedDeltaTime;
-            _currentStamina = Mathf.Min(_currentStamina, _maXStamina);
+            _currentStamina = Mathf.Min(_currentStamina, _maxStamina);
             if (_currentStamina <= 0 && !_rechargeRun)
             {
                 _delayRun = 2f;
@@ -106,7 +105,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void AsignarDireccion(Vector2 direccion)
     {
+
+        //Vector3 direccionCorregidaRespectoACamara = transform.forward * direccion.y + transform.right * direccion.x;
+        //Debug.Log(direccionCorregidaRespectoACamara.y;
+
         _myDirection.x = direccion.x;
         _myDirection.z = direccion.y;
     }
+    
 }
