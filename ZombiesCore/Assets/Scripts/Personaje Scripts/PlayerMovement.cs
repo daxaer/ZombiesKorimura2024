@@ -1,8 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] [Range(0.1f,5f)] private float historicalPositionDuration = 1f;
+    [SerializeField][Range(0.001f, 1f)] private float historicalPositionInterval = 0.1f;
+    private Queue<Vector3> historicalVelocities;
+    private float LastPositionTime;
+    private int MaxQueueSize;
+
     private Rigidbody _playerRigidbody;
     private Vector3 _myDirection;
     private Personaje _miJugador;
@@ -12,6 +20,25 @@ public class PlayerMovement : MonoBehaviour
     private float _currentStamina;
     private float _maXStamina;
 
+    public Vector3 AverageVelocity
+    {
+        get
+        {
+            Vector3 average = Vector3.zero;
+            foreach(Vector3 velocity in historicalVelocities)
+            {
+                average += velocity;
+            }
+            average.y = 0;
+
+            return average / historicalVelocities.Count;
+        }
+    }
+    private void Awake()
+    {
+        MaxQueueSize = Mathf.CeilToInt(1f / historicalPositionInterval * historicalPositionDuration);
+        historicalVelocities = new Queue<Vector3>(MaxQueueSize);
+    }
     private void Start()
     {
         _rechargeRun = false;
@@ -21,8 +48,17 @@ public class PlayerMovement : MonoBehaviour
         _myDirection = Vector3.zero;
         _miJugador = GetComponent<Personaje>();
     }
+    private void Update()
+    {
+        if(historicalVelocities.Count > MaxQueueSize)
+        {
+            historicalVelocities.Dequeue();
+        }
+        historicalVelocities.Enqueue(_playerRigidbody.velocity);
+        LastPositionTime = Time.time;
 
-    
+    }
+
     private void FixedUpdate()
     {
         if (_playerRun && _currentStamina > 0 && !_rechargeRun)

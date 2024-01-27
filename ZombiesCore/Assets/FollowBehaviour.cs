@@ -13,13 +13,16 @@ public class FollowBehaviour : StateMachineBehaviour
     }
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemigo.SetDestination(playerPosicion.position);
-        var distancia = animator.transform.position - playerPosicion.transform.position;
-        var distanciaAPlayer = distancia.magnitude;
-        if (distanciaAPlayer < 1)
+        if(enemigo.isActiveAndEnabled)
         {
-            animator.SetTrigger("atack");
-            Debug.Log("atacando");
+            enemigo.SetDestination(playerPosicion.position);
+            var distancia = animator.transform.position - playerPosicion.transform.position;
+            var distanciaAPlayer = distancia.magnitude;
+            if (distanciaAPlayer < 1)
+            {
+                animator.SetTrigger("atack");
+                Debug.Log("atacando");
+            }
         }
     }
 }

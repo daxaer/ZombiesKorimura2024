@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public abstract class Enemy : RecyclableObject, Damageable, ITarget
+public abstract class Enemy : RecyclableObject, Damageable, ITarget, InterfaceKnockback
 {
     public string IdEnemigo => _idEnemigo;
 
@@ -16,7 +16,7 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget
     [SerializeField] protected private float _velocidadMovimiento;
     [SerializeField] protected private int _damageEnemy;
     [SerializeField] protected private SpawnLoot _loot;
-
+    [SerializeField] protected Rigidbody rb;
     protected private EnemyStatesConfiguration _enemyStatesConfiguration;
     protected private TargetFinder _targetsFinder;
 
@@ -24,7 +24,8 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget
 
     public delegate void _EnemyDead();
     public static event _EnemyDead EnemyDeadEvent;
-
+    //knockaback
+    [Range(0.001f, 0.1f)][SerializeField] protected float stillThreshold = 0.05f;
 
     public virtual void UseEventEnemyDeadEvent()
     {
@@ -32,4 +33,11 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget
         _loot.SpawnLootProbability();
     }
 
+    public virtual void OnEnable()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public abstract void GetKnockback(Vector3 force);
+    
 }
