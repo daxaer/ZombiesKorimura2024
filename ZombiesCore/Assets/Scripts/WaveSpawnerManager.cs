@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using System;
 
 public enum SpawnState
 {
@@ -9,12 +11,14 @@ public enum SpawnState
     COUNTING
 };
 
-
 //TODO: MOVER STATS AUMENTAR LA DIFICULTAD, ETC
 public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
 {
+    public GroupSpawn[] _SpawnPoints;
+
     private SpawnerZombies _spawnerZombies;
 
+    [SerializeField] private GROUPSPAWN groupSpawnType;
 
     public SpawnState state = SpawnState.COUNTING;
     private SpawnState spawnState;
@@ -175,4 +179,52 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
         _spawnerZombies.SpawnZombiesRandom();
         _zombies--;
     }
+
+    public Transform GetTransform(GROUPSPAWN _spawn)
+    {
+        for(int i = 0; i < _SpawnPoints.Length; i++)
+        {
+            if (_SpawnPoints[i].type == _spawn)
+            {
+                return _SpawnPoints[i].GetRandomTransform();
+            }
+        }
+        return null;
+    }
+
+    public void SetSpawnTipe(GROUPSPAWN type)
+    {
+        groupSpawnType = type;
+    }
+    public GROUPSPAWN GetSpawnTipe()
+    {
+        return groupSpawnType;
+    }
+}
+[Serializable]
+public class GroupSpawn
+{
+    public GROUPSPAWN type;
+    public Transform[] positions;
+    public Transform GetRandomTransform()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, positions.Length);
+        if (positions[randomIndex].gameObject.activeSelf)
+        {
+            return positions[randomIndex];
+        }
+        else
+        {
+            return GetRandomTransform();
+        }
+    }
+}
+public enum GROUPSPAWN
+{
+    FUENTE,
+    CUARTO,
+    RIO,
+    LABERINTO,
+    JARDIN,
+    BUNKER,
 }

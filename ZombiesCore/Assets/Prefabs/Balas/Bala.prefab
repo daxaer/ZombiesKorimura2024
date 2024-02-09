@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1a053343a7c394cb4bbab8f452d12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackStrength: 3000
+  _knockbackStrength: 3
   _distanceFallOff:
     m_Mode: 1
     m_CurveMultiplier: 1

@@ -23,6 +23,13 @@ public class FollowBehaviour : StateMachineBehaviour
                 animator.SetTrigger("atack");
                 Debug.Log("atacando");
             }
+            Vector3 direccion = enemigo.velocity.normalized;
+
+            float movimientoX = direccion.x;
+            float movimientoY = direccion.z;
+
+            animator.SetFloat("movimientoX", movimientoX);
+            animator.SetFloat("movimientoY", movimientoY);
         }
     }
 }

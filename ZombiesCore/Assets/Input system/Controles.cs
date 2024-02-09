@@ -46,6 +46,15 @@ public partial class @Controles: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Interactuando"",
+                    ""type"": ""Button"",
+                    ""id"": ""949b5753-5c10-4bb3-abc0-61e124c616a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""0f8600c1-8ec7-4d46-baa9-330089cfaa63"",
@@ -205,6 +214,17 @@ public partial class @Controles: IInputActionCollection2, IDisposable
                     ""action"": ""CambiarCamara"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9923ca09-7212-41f1-aa07-0fb4cebc2459"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interactuando"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +235,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Action = m_Gameplay.FindAction("Action", throwIfNotFound: true);
+        m_Gameplay_Interactuando = m_Gameplay.FindAction("Interactuando", throwIfNotFound: true);
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_CambiarCamara = m_Gameplay.FindAction("CambiarCamara", throwIfNotFound: true);
@@ -281,6 +302,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Action;
+    private readonly InputAction m_Gameplay_Interactuando;
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_CambiarCamara;
@@ -290,6 +312,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
         public GameplayActions(@Controles wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Action => m_Wrapper.m_Gameplay_Action;
+        public InputAction @Interactuando => m_Wrapper.m_Gameplay_Interactuando;
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @CambiarCamara => m_Wrapper.m_Gameplay_CambiarCamara;
@@ -308,6 +331,9 @@ public partial class @Controles: IInputActionCollection2, IDisposable
             @Action.started += instance.OnAction;
             @Action.performed += instance.OnAction;
             @Action.canceled += instance.OnAction;
+            @Interactuando.started += instance.OnInteractuando;
+            @Interactuando.performed += instance.OnInteractuando;
+            @Interactuando.canceled += instance.OnInteractuando;
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
@@ -327,6 +353,9 @@ public partial class @Controles: IInputActionCollection2, IDisposable
             @Action.started -= instance.OnAction;
             @Action.performed -= instance.OnAction;
             @Action.canceled -= instance.OnAction;
+            @Interactuando.started -= instance.OnInteractuando;
+            @Interactuando.performed -= instance.OnInteractuando;
+            @Interactuando.canceled -= instance.OnInteractuando;
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
@@ -357,6 +386,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
+        void OnInteractuando(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnCambiarCamara(InputAction.CallbackContext context);

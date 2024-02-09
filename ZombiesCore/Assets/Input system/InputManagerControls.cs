@@ -46,6 +46,8 @@ public class InputManagerControls : MonoBehaviour
         controles.Gameplay.Run.canceled += RunPlayer;
         controles.Gameplay.CambiarCamara.performed += CambiarCamarasAccion;
         controles.Gameplay.CambiarCamara.canceled += CambiarCamarasAccion;
+        controles.Gameplay.Interactuando.performed += Interaccion;
+        controles.Gameplay.Interactuando.canceled += Interaccion;
     }
 
     private void CambiarCamarasAccion(InputAction.CallbackContext context)
@@ -67,13 +69,18 @@ public class InputManagerControls : MonoBehaviour
         var presButton = obj.ReadValueAsButton();
         if (!presButton)
         {
-            if (_interactuando)
+             PersonajeAction?.Invoke();
+        }
+    }
+
+    private void Interaccion(InputAction.CallbackContext obj)
+    {
+        var presButton = obj.ReadValueAsButton();
+        if(!presButton)
+        {
+            if(_interactuando)
             {
                 interactuableColision.GetComponent<Interactuable>().Interaccion();
-            }
-            else
-            {
-                PersonajeAction?.Invoke();
             }
         }
     }
@@ -113,7 +120,7 @@ public class InputManagerControls : MonoBehaviour
 
         _interactuando = true;
         interactuableColision = other;
-        other.GetComponent<Interactuable>()?.ActivarUI(_interactuando);
+        //other.GetComponent<Interactuable>()?.ActivarUI(_interactuando);
         other.GetComponent<Interactuable>().Personaje = _personaje;
     }
 
@@ -127,6 +134,6 @@ public class InputManagerControls : MonoBehaviour
 
         interactuableColision = null;
         _interactuando = false;
-        other.GetComponent<Interactuable>().ActivarUI(_interactuando);
+        //other.GetComponent<Interactuable>().ActivarUI(_interactuando);
     }
 }
