@@ -47,9 +47,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6603470235432559402}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Mass: 75
+  m_Drag: 0
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -103,11 +103,16 @@ MonoBehaviour:
   _rangoDeVision: 30
   _idEnemigo: Zombie
   _target: {fileID: 0}
-  _vidaEnemigo: 2
+  _vidaEnemigo: 20
   _velocidadMovimiento: 100
   _damageEnemy: 1
   _loot: {fileID: 1852641971571155209}
   rb: {fileID: 0}
+  getKnockback: 0
+  stun: 0
+  agent: {fileID: 0}
+  impact: {x: 0, y: 0, z: 0}
+  KnockbackStrengh: 0
   stillThreshold: 0.05
 --- !u!114 &1852641971571155209
 MonoBehaviour:

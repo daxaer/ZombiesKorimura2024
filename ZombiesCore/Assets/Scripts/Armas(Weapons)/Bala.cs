@@ -12,6 +12,8 @@ public class Bala : RecyclableObject
     [SerializeField] ParticleSystem.MinMaxCurve _distanceFallOff;
     [SerializeField] Vector3 _distanceStart;
     [SerializeField] Vector3 _distancetraveled;
+    [SerializeField] bool ApliKnockback;
+    [SerializeField] float stunTime;
 
     [SerializeField] private float _velocidadBala;
     private Vector3 _targetPosition;
@@ -45,28 +47,29 @@ public class Bala : RecyclableObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("tocando enemigo triger");
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
         Debug.Log("tocando enemigo");
-        var objetoDamageable = collision.gameObject.GetComponent<Damageable>();
-        Vector3 force = GetKnockbackStrength(-collision.impulse.normalized, CalcularDistancia());
+        if (other.CompareTag("Enemy") && ApliKnockback)
+        {
+            
+            Rigidbody enemyrb = other.GetComponent<Rigidbody>();
+            if (enemyrb != null)
+            {
+                Debug.Log("knockback");
+                other.GetComponent<Enemy>().StarKnockback(stunTime, transform.position, _knockbackStrength);
+            }
+        }
+        var objetoDamageable = other.gameObject.GetComponent<Damageable>();
         objetoDamageable?.DoDamage(1);
         CancelInvoke(nameof(Reciclar));
         Reciclar();
     }
+
 
     private void OnEnable()
     {
         _distanceStart = transform.position;
         Invoke(nameof(Reciclar), _tiempoDeVidaBala);
     }
-    //public void ConfigureTarget(RecyclableObject target)
-    //{
-    //    //_targetPosition = target.transform.position;
-    //    //_targetDireccion = _targetPosition - transform.position;
-    //}
     public Vector3 GetKnockbackStrength(Vector3 direction, float distance)
     {
         return _knockbackStrength * _distanceFallOff.Evaluate(distance) * direction; 
@@ -92,3 +95,21 @@ public class Bala : RecyclableObject
         return Vector3.Distance(_distanceStart, transform.position);
     }
 }
+    //public void ConfigureTarget(RecyclableObject target)
+    //{
+    //    //_targetPosition = target.transform.position;
+    //    //_targetDireccion = _targetPosition - transform.position;
+    //}
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log("tocando enemigo");
+    //    if(collision.collider.CompareTag("Enemy") && ApliKnockback)
+    //    {
+            
+    //    }
+    //    var objetoDamageable = collision.gameObject.GetComponent<Damageable>();
+    //    //Vector3 force = GetKnockbackStrength(-collision.impulse.normalized, CalcularDistancia());
+    //    objetoDamageable?.DoDamage(1);
+    //    CancelInvoke(nameof(Reciclar));
+    //    Reciclar();
+    //}

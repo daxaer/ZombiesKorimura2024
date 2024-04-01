@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc59ae218b578a346b9d4cf78fe7f602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  historicalPositionDuration: 1
+  historicalPositionInterval: 0.1
   _maxStamina: 500
 --- !u!54 &8916261644008970770
 Rigidbody:

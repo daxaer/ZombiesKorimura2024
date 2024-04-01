@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DiaNocheManager : Singleton<DiaNocheManager>
 {
@@ -39,8 +40,13 @@ public class DiaNocheManager : Singleton<DiaNocheManager>
         {
             _rotacionSolVelocidad = sunRotationSpeedDeNocheADia;
         }
+        if (Keyboard.current.tKey.isPressed)
+        {
+            AvanzarDia();
+        }
 
-
+            
+        
         ActualizarRotacionSol();
         ActualizarIluminacion();
     }
