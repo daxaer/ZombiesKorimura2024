@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Enemy : RecyclableObject, Damageable, ITarget//, InterfaceKnockback
@@ -23,8 +24,8 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     [SerializeField] protected private NavMeshAgent agent;
     [SerializeField] protected private Vector3 impact;
     [SerializeField] protected private float KnockbackStrengh;
-    protected private EnemyStatesConfiguration _enemyStatesConfiguration;
-    protected private TargetFinder _targetsFinder;
+    //protected private EnemyStatesConfiguration _enemyStatesConfiguration;
+    //protected private TargetFinder _targetsFinder;
     
 
 
@@ -64,16 +65,19 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
         
     }
 
+    public void FixedUpdate()
+    {
+        if(getKnockback)
+        {
+            Vector3 knockbackDirection = impact - this.transform.position;
+            knockbackDirection.Normalize();
+            this.GetComponent<Rigidbody>().AddForce(knockbackDirection * (KnockbackStrengh * Time.fixedDeltaTime), ForceMode.Impulse);
+            getKnockback = false;
+        }
+    }
     IEnumerator ApliKnockback()
     {
-        Vector3 knockbackDirection = impact - this.transform.position;
-        knockbackDirection.Normalize();
-        this.GetComponent<Rigidbody>().AddForce(knockbackDirection * KnockbackStrengh, ForceMode.Impulse);
         yield return new WaitForSeconds(Stun);
         agent.enabled = true;
-        getKnockback = false;
     }
-
-    //public abstract void GetKnockback(Vector3 force);
-
 }

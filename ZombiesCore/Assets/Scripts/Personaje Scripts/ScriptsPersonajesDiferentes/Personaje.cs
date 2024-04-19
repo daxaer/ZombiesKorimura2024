@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [Serializable]
-public class StatsPersonaje
+public class StatsPersonaje 
 {
     [SerializeField] private int _vidaMax;
     [SerializeField] private int _vidaActual;
@@ -45,6 +48,8 @@ public class StatsPersonaje
             }
         }
     }
+
+    
 
     public int Experiencia
     {
@@ -120,9 +125,31 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
 
     public void DoDamage(int damage)
     {
-        Debug.Log("Recibiendo "+ damage, gameObject);
-        
+        if (_statsPersonaje.VidaActual == 0)
+            return;
+        _statsPersonaje.VidaActual -= damage;
+        if (_statsPersonaje.VidaActual <= 0)
+        {
+            Debug.Log("Muerto");
+            StopCoroutine("Recuperacion");
+            _statsPersonaje.VelocidadMovimiento = 0;
+            CursorManager.Instance.Damage(_statsPersonaje.VidaActual);
+        }
+        else
+        {
+            CursorManager.Instance.Damage(_statsPersonaje.VidaActual);
+            StopCoroutine("Recuperacion");
+            StartCoroutine("Recuperacion");
+        }
     }
+    IEnumerator Recuperacion()
+    {
+        Debug.Log("vida actual" + _statsPersonaje.VidaActual);
+        yield return new WaitForSeconds(4f);
+        _statsPersonaje.VidaActual = _statsPersonaje.VidaMax;
+        CursorManager.Instance.Damage(_statsPersonaje.VidaActual);
+    }
+
     private void Start()
     {
         InitStats();

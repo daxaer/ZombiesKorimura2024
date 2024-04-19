@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorManager : Singleton<CursorManager>
 {
+    [SerializeField] private Image image;
+    [SerializeField] private Color color;
     [SerializeField] private Texture2D[] _cursorTexture;
     [SerializeField] private Texture2D[] _recharge;
     [SerializeField] private float _timeAnimation;
@@ -51,6 +54,27 @@ public class CursorManager : Singleton<CursorManager>
                 break;
             }
         }
+    }
+
+    public void Damage(int vida)
+    {
+        switch(vida)
+        {
+            case 2:
+                color.a = 0.3f;
+                break;
+            case 1:
+                color.a = 0.6f;
+                break;
+            case 0:
+                color.a = 1f;
+                break;
+            default:
+                color.a = 0f;
+                break;
+        }
+
+        image.color = color;
     }
 }
 

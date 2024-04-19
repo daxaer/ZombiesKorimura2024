@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encontrandoEnemigo: 0
   _statsPersonaje:
-    _vidaMax: 100
+    _vidaMax: 4
     _vidaActual: 0
     _velocidadMax: 4
     _velocidadMovimiento: 2

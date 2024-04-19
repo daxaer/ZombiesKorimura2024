@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6491402789827543053}
   - component: {fileID: 6768786369264024079}
   m_Layer: 6
-  m_Name: Bala
+  m_Name: Bala Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   ApliKnockback: 1
   stunTime: 1
   shotAngle: 10
-  _velocidadBala: 30
-  velocidadMax: 40
-  velocidadMin: 20
-  durabilidad: 1
+  _velocidadBala: 1000
+  velocidadMax: 1000
+  velocidadMin: 1000
+  durabilidad: 100
   _tiempoDeVidaBala: 5
 --- !u!1 &8521862044831771724
 GameObject:

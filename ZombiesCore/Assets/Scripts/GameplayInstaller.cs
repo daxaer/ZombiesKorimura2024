@@ -18,7 +18,9 @@ public class GameplayInstaller : MonoBehaviour
     private FactoriaMainGameplay _abstractFactory;
     private bool slowMotion;
 
-
+    //debugin
+    [Header("Armas Equipada")]
+    [SerializeField] private int arma;
     
     private void OnEnable()
     {
@@ -41,7 +43,7 @@ public class GameplayInstaller : MonoBehaviour
 
         _abstractFactory = new FactoriaMainGameplay(factoriaPersonajes, factoriaArmas, factoriaEnemigo);
         var consumer = _abstractFactory.CrearPersonaje("Humano"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
-        var pistola = _abstractFactory.CrearYAsignarAPersonaje(1000,consumer);
+        var pistola = _abstractFactory.CrearYAsignarAPersonaje(arma, consumer);
         pistola.ConfigurarFactoriaArmas(factoriaArmas); //EL ASIGNAR LA FACTORIA ESTA BIEN LO QUE SE TIENE QUE MEJORAR ES QUE FUNCIONE DINAMICAMENTE ESE ID QUE SE LE ESTA PASANDO
         _spawnerZombies.ConfigurarFactoriaEnemigos(factoriaEnemigo);
         MouseApuntarGameObject.player = consumer.transform;

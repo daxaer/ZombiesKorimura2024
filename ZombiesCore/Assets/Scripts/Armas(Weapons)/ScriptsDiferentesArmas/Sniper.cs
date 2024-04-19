@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class MetralletaTest : DetallesArma
+public class Sniper : DetallesArma
 {
     public override void Atacar()
     {

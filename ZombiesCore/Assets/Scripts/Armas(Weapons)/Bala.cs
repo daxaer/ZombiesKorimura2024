@@ -7,17 +7,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(BoxCollider))]
 public class Bala : RecyclableObject
 {
-    //retroceso
     [SerializeField] private float _knockbackStrength;
-    [SerializeField] ParticleSystem.MinMaxCurve _distanceFallOff;
-    [SerializeField] Vector3 _distanceStart;
-    [SerializeField] Vector3 _distancetraveled;
     [SerializeField] bool ApliKnockback;
     [SerializeField] float stunTime;
+    [SerializeField] float shotAngle;
 
     [SerializeField] private float _velocidadBala;
-    private Vector3 _targetPosition;
+    [SerializeField] float velocidadMax;
+    [SerializeField] float velocidadMin;
+    [SerializeField] private int durabilidad;
+    [SerializeField] private int durabilidadInicial;
     private Vector3 _targetDireccion;
+    private Transform _posicionInicial;
 
     [Tooltip("El tiempo que durara viva la bala en la escena si no choca con ningun enemigo")]
     [SerializeField] private float _tiempoDeVidaBala = 5.0f;
@@ -27,6 +28,7 @@ public class Bala : RecyclableObject
     private void Awake()
     {
         _rigidbody = gameObject.GetComponent<Rigidbody>();
+        _posicionInicial = gameObject.GetComponentInParent<Transform>();
         //gameObject.transform.rotation = gameObject.GetComponentInParent<Transform>().rotation;
     }
 
@@ -36,6 +38,7 @@ public class Bala : RecyclableObject
     }
     private void FixedUpdate()
     {
+        _velocidadBala = Random.Range(velocidadMin, velocidadMax);
         _rigidbody.MovePosition(transform.position + _targetDireccion * (_velocidadBala * Time.fixedDeltaTime));
         //var moveDirection = (_targetDireccion).normalized;
         //_rigidbody.MovePosition(transform.position + moveDirection * (_velocidadBala * Time.fixedDeltaTime));
@@ -55,25 +58,33 @@ public class Bala : RecyclableObject
             if (enemyrb != null)
             {
                 Debug.Log("knockback");
-                other.GetComponent<Enemy>().StarKnockback(stunTime, transform.position, _knockbackStrength);
+                other.GetComponent<Enemy>().StarKnockback(stunTime, _posicionInicial.position, _knockbackStrength);
             }
         }
+        durabilidad--;
+        Debug.Log("durabilidad" + durabilidad);
         var objetoDamageable = other.gameObject.GetComponent<Damageable>();
         objetoDamageable?.DoDamage(1);
-        CancelInvoke(nameof(Reciclar));
-        Reciclar();
+        if (durabilidad <= 0)
+        {
+            CancelInvoke(nameof(Reciclar));
+            Reciclar();
+        }
+       
+        
     }
 
 
     private void OnEnable()
     {
-        _distanceStart = transform.position;
+        //_distanceStart = transform.position;
         Invoke(nameof(Reciclar), _tiempoDeVidaBala);
+        durabilidad = durabilidadInicial;
     }
-    public Vector3 GetKnockbackStrength(Vector3 direction, float distance)
-    {
-        return _knockbackStrength * _distanceFallOff.Evaluate(distance) * direction; 
-    }
+    //public Vector3 GetKnockbackStrength(Vector3 direction, float distance)
+    //{
+    //    return _knockbackStrength * _distanceFallOff.Evaluate(distance) * direction; 
+    //}
     public void ConfigureTarget()
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
@@ -87,13 +98,17 @@ public class Bala : RecyclableObject
             
             _targetDireccion.y = 0; 
             _targetDireccion.Normalize();
+
+            float Angle = Random.Range(-shotAngle, shotAngle);
+            _targetDireccion = Quaternion.Euler(0,Angle,0) * _targetDireccion;
+            _targetDireccion.Normalize();
         }
     }
 
-    public float CalcularDistancia()
-    {
-        return Vector3.Distance(_distanceStart, transform.position);
-    }
+    //public float CalcularDistancia()
+    //{
+    //    return Vector3.Distance(_distanceStart, transform.position);
+    //}
 }
     //public void ConfigureTarget(RecyclableObject target)
     //{

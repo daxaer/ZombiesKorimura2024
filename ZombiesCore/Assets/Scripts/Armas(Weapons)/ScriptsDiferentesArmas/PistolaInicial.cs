@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class PistolaInicial : DetallesArma
 {
+    public override void Atacar()
+    {
+        if (ActualBalasCargador <= 0) return;
+        if (Recargando) return;
+        CancelInvoke(nameof(RecargaAutomatica));
+        if (!(Time.time > SiquienteDisparo)) return;
+        SiquienteDisparo = Time.time + VelocidadDisparo;
+        CursorManager.Instance.ActivarMira();
+        _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
+        ActualBalasCargador--;
+        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
+        Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
+        if (ActualBalasCargador <= 0)
+        {
+            StartCoroutine(nameof(Recargar));
+        }
+    }
     public override IEnumerator Recargar()
     {
         Debug.Log("recargando");

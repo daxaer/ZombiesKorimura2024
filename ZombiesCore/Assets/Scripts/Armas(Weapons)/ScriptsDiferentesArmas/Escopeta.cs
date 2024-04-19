@@ -2,25 +2,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class MetralletaTest : DetallesArma
+public class Escopeta : DetallesArma
 {
-    public override void Atacar()
-    {
-        if (ActualBalasCargador <= 0) return;
-        if (Recargando) return;
-        CancelInvoke(nameof(RecargaAutomatica));
-        if (!(Time.time > SiquienteDisparo)) return;
-        SiquienteDisparo = Time.time + VelocidadDisparo;
-        CursorManager.Instance.ActivarMira();
-        _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
-        ActualBalasCargador--;
-        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
-        Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
-        if (ActualBalasCargador <= 0)
-        {
-            StartCoroutine(nameof(Recargar));
-        }
-    }
     public override IEnumerator Recargar()
     {
         Debug.Log("recargando");
@@ -46,6 +29,29 @@ public class MetralletaTest : DetallesArma
         Debug.Log("recargaCompletada");
         CursorManager.Instance.DefaultCursor();
         CancelInvoke(nameof(RecargaAutomatica));
+    }
+
+    public override void Atacar()
+    {
+        if (ActualBalasCargador <= 0) return;
+        if (Recargando) return;
+        CancelInvoke(nameof(RecargaAutomatica));
+        if (!(Time.time > SiquienteDisparo)) return;
+        SiquienteDisparo = Time.time + VelocidadDisparo;
+        CursorManager.Instance.ActivarMira();
+        Debug.Log("hola");
+        for (int i = 0; i < Perdigones; i++)
+        {
+            Debug.Log("i");
+            _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
+        }
+        ActualBalasCargador--;
+        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
+        Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
+        if (ActualBalasCargador <= 0)
+        {
+            StartCoroutine(nameof(Recargar));
+        }
     }
 
     public override void RecargaAutomatica()

@@ -32,6 +32,7 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     [SerializeField] private float _maxBalasCargador;
     [SerializeField] private float _actualbalasCargador;
     [SerializeField] private float _siguienteDisparo;
+    [SerializeField] private float _perdigones;
 
     [SerializeField] private GameObject _municion;
     [SerializeField] private GameObject _cargador;
@@ -45,20 +46,7 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     //public abstract void Atacar(/*RecyclableObject targetDisparo*/);
     public virtual void Atacar()
     {
-        if (ActualBalasCargador <= 0) return;
-        if (Recargando) return;
-        CancelInvoke(nameof(RecargaAutomatica));
-        if (!(Time.time > _siguienteDisparo)) return;
-        _siguienteDisparo = Time.time + VelocidadDisparo;
-        CursorManager.Instance.ActivarMira();
-        _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
-        ActualBalasCargador--;
-        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
-        Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
-        if (ActualBalasCargador <= 0)
-        {
-            StartCoroutine(nameof(Recargar));
-        }
+
     }
 
     public virtual void ConfigurarFactoriaArmas(FactoriaArmas factoriaArmas)
@@ -87,7 +75,8 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     public float TiempoRecarga { get => _tiempoRecarga; set => _tiempoRecarga = value; }
     
     public float TiempoRecargaAutomatica { get => _tiempoRecargaAutomatica; set => _tiempoRecargaAutomatica = value; }
-    
+    public float Perdigones { get => _perdigones; set => _perdigones = value; }
+
     public bool Recargando { get => _recargando; set => _recargando = value;}
 
     public float SiquienteDisparo { get => _siguienteDisparo; set => _siguienteDisparo = value; }

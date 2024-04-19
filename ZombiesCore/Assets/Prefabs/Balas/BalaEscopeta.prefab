@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6491402789827543053}
   - component: {fileID: 6768786369264024079}
   m_Layer: 6
-  m_Name: Bala
+  m_Name: BalaEscopeta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,15 +95,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1a053343a7c394cb4bbab8f452d12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _knockbackStrength: 30000
+  _knockbackStrength: 100
   ApliKnockback: 1
-  stunTime: 1
+  stunTime: 0.1
   shotAngle: 10
   _velocidadBala: 30
-  velocidadMax: 40
-  velocidadMin: 20
+  velocidadMax: 32
+  velocidadMin: 28
   durabilidad: 1
-  _tiempoDeVidaBala: 5
+  _tiempoDeVidaBala: 0.2
 --- !u!1 &8521862044831771724
 GameObject:
   m_ObjectHideFlags: 0

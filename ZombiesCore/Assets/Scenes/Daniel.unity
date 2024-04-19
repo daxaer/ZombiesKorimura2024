@@ -13900,6 +13900,8 @@ GameObject:
   - component: {fileID: 902317818}
   - component: {fileID: 902317817}
   - component: {fileID: 902317816}
+  - component: {fileID: 902317821}
+  - component: {fileID: 902317820}
   m_Layer: 5
   m_Name: Controles
   m_TagString: Untagged
@@ -13939,7 +13941,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 32
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 2340, y: 1080}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
@@ -13991,6 +13993,44 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &902317820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902317815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cce090ebd012cb5439f307b7a971ebee, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &902317821
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902317815}
+  m_CullTransparentMesh: 1
 --- !u!1001 &906800003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21109,6 +21149,7 @@ MonoBehaviour:
   cameraPrimeraPersona: {fileID: 758580898}
   MouseApuntarGameObject: {fileID: 1147865890}
   _vendedor: {fileID: 1111397542}
+  arma: 1000
 --- !u!4 &1396988690
 Transform:
   m_ObjectHideFlags: 0
@@ -33712,6 +33753,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5686007887875662450, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 902317820}
+    - target: {fileID: 5686007887875662450, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686007887875662450, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686007887875662450, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686007887875662450, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
+      propertyPath: imageColor
+      value: 
+      objectReference: {fileID: 902317820}
     - target: {fileID: 6569118320325369218, guid: 216847b0fd7e121458bcc14ca4da1c9a, type: 3}
       propertyPath: m_DefaultBlend.m_Time
       value: 1.5
