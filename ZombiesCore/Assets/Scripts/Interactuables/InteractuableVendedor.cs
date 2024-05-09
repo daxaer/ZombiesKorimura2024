@@ -4,7 +4,6 @@ using TMPro;
 
 public class InteractuableVendedor : Interactuable
 {
-    
     private bool _puedesAgarrarArma;
     
     [SerializeField] private Transform mostrador;
