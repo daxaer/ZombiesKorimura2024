@@ -14,7 +14,8 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     [SerializeField] protected private float _rangoDeVision;
     [SerializeField] protected private string _idEnemigo;
     [SerializeField] protected private Transform _target;
-    [SerializeField] protected private int _vidaEnemigo;
+    [SerializeField] protected private float _enemyLife;
+    [SerializeField] protected private int _starEnemyLife;
     [SerializeField] protected private float _velocidadMovimiento;
     [SerializeField] protected private int _damageEnemy;
     [SerializeField] protected private SpawnLoot _loot;
@@ -27,7 +28,10 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     //protected private EnemyStatesConfiguration _enemyStatesConfiguration;
     //protected private TargetFinder _targetsFinder;
     
-
+    public void  SetEnemyLife(float lifeMultiplier)
+    {
+        _enemyLife = _starEnemyLife * lifeMultiplier;
+    }
 
     public abstract void DoDamage(int damage);
 

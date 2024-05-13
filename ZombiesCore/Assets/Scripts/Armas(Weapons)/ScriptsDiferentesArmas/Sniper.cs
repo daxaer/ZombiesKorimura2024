@@ -6,17 +6,17 @@ public class Sniper : DetallesArma
 {
     public override void Atacar()
     {
-        if (ActualBalasCargador <= 0) return;
+        if (CurrentCharger <= 0) return;
         if (Recargando) return;
         CancelInvoke(nameof(RecargaAutomatica));
         if (!(Time.time > SiquienteDisparo)) return;
         SiquienteDisparo = Time.time + VelocidadDisparo;
         CursorManager.Instance.ActivarMira();
         _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
-        ActualBalasCargador--;
-        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
+        CurrentCharger--;
+        UIManager.Instance.UpdateChargerAmmo(MaxCharger, CurrentCharger);
         Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
-        if (ActualBalasCargador <= 0)
+        if (CurrentCharger <= 0)
         {
             StartCoroutine(nameof(Recargar));
         }
@@ -27,20 +27,20 @@ public class Sniper : DetallesArma
         Recargando = true;
         CursorManager.Instance.Reloading(TiempoRecarga);
         yield return new WaitForSeconds(TiempoRecarga);
-        if (MaxBalasCargador >= ActualBalas)
+        if (MaxCharger >= CurrentAmmo)
         {
-            ActualBalasCargador = ActualBalas;
-            ActualBalas = 0;
+            CurrentCharger = CurrentAmmo;
+            CurrentAmmo = 0;
         }
         else
         {
-            var balasEnCargador = ActualBalasCargador;
-            ActualBalasCargador = MaxBalasCargador;
-            ActualBalas -= ActualBalasCargador;
-            ActualBalas += balasEnCargador;
+            var balasEnCargador = CurrentCharger;
+            CurrentCharger = MaxCharger;
+            CurrentAmmo -= CurrentCharger;
+            CurrentAmmo += balasEnCargador;
         }
-        Municion.GetComponent<TextMeshProUGUI>().text = ActualBalas + "/" + MaxBalas;
-        Cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
+        UIManager.Instance.UpdateTotalAmmo(MaxAmmo, CurrentAmmo);
+        UIManager.Instance.UpdateChargerAmmo(MaxCharger, CurrentCharger);
         SiquienteDisparo = Time.time + VelocidadDisparo;
         Recargando = false;
         Debug.Log("recargaCompletada");

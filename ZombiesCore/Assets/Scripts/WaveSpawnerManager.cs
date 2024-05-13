@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using System;
 
 public enum SpawnState
@@ -23,16 +21,17 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
     public SpawnState state = SpawnState.COUNTING;
     private SpawnState spawnState;
     [SerializeField] private int _enemigosVivos = 0;
-    [SerializeField] private float _tiempoEntreOleada = 5f;
-    [SerializeField] private float _countDown = 2f;
+    //[SerializeField] private float _tiempoEntreOleada = 5f;
+    //[SerializeField] private float _countDown = 2f;
     [SerializeField] private float _tiempoSpawnPorEnemigo = 5.0f;
     [SerializeField] private bool _activarSpawnSystem = false;
 
-    [SerializeField] private int _ronda = 0;
+    [SerializeField] private int _round = 0;
 
     [SerializeField] private int _rondaFinal = 255;
     [SerializeField] private int _jugadores = 1;
-    [SerializeField] private float _multiplicadorDeVida = 1.1f;
+    [SerializeField] private float _lifeMultiplier = 1.1f;
+    [SerializeField] private float currentLifeMultiplier;
     [SerializeField] private int[] _zombiesPorRondaUnJugador = { 6, 8, 13, 18, 24, 27, 28, 28, 29 };
     [SerializeField] private int[] _zombiesPorRondaDosJugador = { 7, 9, 15, 21, 27, 31, 32, 33, 34 };
     [SerializeField] private int[] _zombiesPorRondaTresJugador = { 9, 10, 18, 25, 32, 38, 40, 43, 45 };
@@ -43,6 +42,11 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
     public int EnemigosVivos => _enemigosVivos;
     public int ZombiesMaxPorRonda;
     private bool estaEjecutandoseCorutinaRunSpawner = false;
+
+    public float GetLifeMultiplier()
+    {
+        return currentLifeMultiplier;
+    }
     private void Start()
     {
         _spawnerZombies = gameObject.GetComponent<SpawnerZombies>();
@@ -67,7 +71,7 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
         // Primera vez espera el tiempo
         yield return new WaitUntil(DiaNocheManager.Instance.HoraIndicadaParaZombies);
 
-        while (_activarSpawnSystem && _ronda < _rondaFinal)
+        while (_activarSpawnSystem && _round < _rondaFinal)
         {
             yield return new WaitUntil(DiaNocheManager.Instance.HoraIndicadaParaZombies);
             state = SpawnState.SPAWNING;
@@ -112,21 +116,23 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
     private IEnumerator SpawnWave()
     {
 
-        _ronda++;
+        _round++;
+        currentLifeMultiplier = _lifeMultiplier * _round;
+        UIManager.Instance.UpdateCurrentRound(_round);
         //AGREGAR LOS ENEMIGOS VIVOS CUANTOS VAN A SER Y APLICAR LA FORMULA DE LOS ZOMBIES DE COD
 
         if (_jugadores == 1)
         {
-            if (_ronda <= 9)
+            if (_round <= 9)
             {
-                _zombies += _zombiesPorRondaUnJugador[_ronda];
+                _zombies += _zombiesPorRondaUnJugador[_round];
                 _enemigosVivos = _zombies;
                 ZombiesMaxPorRonda = _enemigosVivos;
                 //cambiar vida de zombies
             }
             else
             {
-                _zombies += Mathf.FloorToInt((24 + _ronda / 5 * (0.15f * _ronda) * 3));
+                _zombies += Mathf.FloorToInt((24 + _round / 5 * (0.15f * _round) * 3));
 
             }
             while (_zombies >= 1)
@@ -139,22 +145,22 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
         }
         else
         {
-            if (_ronda <= 9)
+            if (_round <= 9)
             {
                 if (_jugadores == 2)
                 {
-                    _zombies += _zombiesPorRondaDosJugador[_ronda];
+                    _zombies += _zombiesPorRondaDosJugador[_round];
                     _enemigosVivos = _zombies;
 
                 }
                 else if (_jugadores == 3)
                 {
-                    _zombies += _zombiesPorRondaTresJugador[_ronda];
+                    _zombies += _zombiesPorRondaTresJugador[_round];
                     _enemigosVivos = _zombies;
                 }
                 else
                 {
-                    _zombies += _zombiesPorRondaCuatroJugador[_ronda];
+                    _zombies += _zombiesPorRondaCuatroJugador[_round];
                     _enemigosVivos = _zombies;
                 }
             }

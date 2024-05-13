@@ -50,28 +50,33 @@ public class Bala : RecyclableObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("tocando enemigo");
-        if (other.CompareTag("Enemy") && ApliKnockback)
+        if (other.CompareTag("Enemy"))
         {
-            
-            Rigidbody enemyrb = other.GetComponent<Rigidbody>();
-            if (enemyrb != null)
+            IMoney moneyManager = GetComponent<IMoney>();
+            if (moneyManager != null)
             {
-                Debug.Log("knockback");
-                other.GetComponent<Enemy>().StarKnockback(stunTime, _posicionInicial.position, _knockbackStrength);
+                moneyManager.AddMoney(10);
+            }
+
+            if (ApliKnockback)
+            {
+                Rigidbody enemyrb = other.GetComponent<Rigidbody>();
+                if (enemyrb != null)
+                {
+                    Debug.Log("knockback");
+                    other.GetComponent<Enemy>().StarKnockback(stunTime, _posicionInicial.position, _knockbackStrength);
+                }
+            }
+            durabilidad--;
+            Debug.Log("durabilidad" + durabilidad);
+            var objetoDamageable = other.gameObject.GetComponent<Damageable>();
+            objetoDamageable?.DoDamage(1);
+            if (durabilidad <= 0)
+            {
+                CancelInvoke(nameof(Reciclar));
+                Reciclar();
             }
         }
-        durabilidad--;
-        Debug.Log("durabilidad" + durabilidad);
-        var objetoDamageable = other.gameObject.GetComponent<Damageable>();
-        objetoDamageable?.DoDamage(1);
-        if (durabilidad <= 0)
-        {
-            CancelInvoke(nameof(Reciclar));
-            Reciclar();
-        }
-       
-        
     }
 
 

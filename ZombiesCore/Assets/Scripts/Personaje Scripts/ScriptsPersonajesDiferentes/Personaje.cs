@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [Serializable]
-public class StatsPersonaje 
+public class StatsPersonaje : IMoney
 {
     [SerializeField] private int _vidaMax;
     [SerializeField] private int _vidaActual;
@@ -94,6 +94,11 @@ public class StatsPersonaje
     public bool EsMaximoNivelf(int nivel)
     {
         return nivel == ExperienciaPorNivel.Length - 1;
+    }
+
+    public void AddMoney(int money)
+    {
+        _dineroActual += money;
     }
     #endregion
 

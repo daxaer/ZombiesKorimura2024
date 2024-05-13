@@ -15,8 +15,8 @@ public class Zombie : Enemy
 
     public override void DoDamage(int damage)
     {
-        _vidaEnemigo -= damage;
-        if (_vidaEnemigo <= 0)
+        _enemyLife -= damage;
+        if (_enemyLife <= 0)
         {
             //if (knockbackCoroutine != null) // Verifica si la corrutina está en ejecución
             //{

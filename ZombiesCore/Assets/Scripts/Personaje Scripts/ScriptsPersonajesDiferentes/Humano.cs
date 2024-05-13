@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Humano : Personaje
+public class Humano : Personaje 
 {
     private void OnEnable()
     {

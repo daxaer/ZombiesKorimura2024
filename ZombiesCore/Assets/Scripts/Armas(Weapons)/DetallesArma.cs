@@ -27,15 +27,12 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     [SerializeField] public bool _recargando;
     [SerializeField] private float _tiempoRecarga;
     [SerializeField] private float _tiempoRecargaAutomatica;
-    [SerializeField] private float _maxBalas;
-    [SerializeField] private float _actualBalas;
-    [SerializeField] private float _maxBalasCargador;
-    [SerializeField] private float _actualbalasCargador;
+    [SerializeField] private int _maxAmmo;
+    [SerializeField] private int _currentAmmo;
+    [SerializeField] private int _maxCharger;
+    [SerializeField] private int _currentCharger;
     [SerializeField] private float _siguienteDisparo;
     [SerializeField] private float _perdigones;
-
-    [SerializeField] private GameObject _municion;
-    [SerializeField] private GameObject _cargador;
 
     public int IdArma { get => _idArma; }
     public string Descripcion { get => _descripcion; }
@@ -52,10 +49,8 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     public virtual void ConfigurarFactoriaArmas(FactoriaArmas factoriaArmas)
     {
         _factoriaArmas = factoriaArmas;
-        _municion = GameObject.Find("municion_text");
-        _cargador = GameObject.Find("cargador_text");
-        _municion.GetComponent<TextMeshProUGUI>().text = ActualBalas + "/" + MaxBalas;
-        _cargador.GetComponent<TextMeshProUGUI>().text = ActualBalasCargador + "/" + MaxBalasCargador;
+        UIManager.Instance.UpdateTotalAmmo(MaxAmmo, CurrentAmmo);
+        UIManager.Instance.UpdateChargerAmmo(MaxCharger, CurrentCharger);
     }
     public abstract IEnumerator Recargar();
     
@@ -64,13 +59,13 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     public Transform BalaSpawnReference { get => _balaSpawnReference; }
 
     //recarga y cargador
-    public float MaxBalas { get => _maxBalas;  set => _maxBalas = value;}
-    
-    public float ActualBalas { get => _actualBalas; set => _actualBalas = value; }
-    
-    public float MaxBalasCargador { get => _maxBalasCargador; set => _maxBalasCargador = value; }
-    
-    public float ActualBalasCargador { get => _actualbalasCargador; set => _actualbalasCargador = value; }
+    public int MaxAmmo { get => _maxAmmo;  set => _maxAmmo = value;}
+          
+    public int CurrentAmmo { get => _currentAmmo; set => _currentAmmo = value; }
+           
+    public int MaxCharger { get => _maxCharger; set => _maxCharger = value; }
+           
+    public int CurrentCharger { get => _currentCharger; set => _currentCharger = value; }
     
     public float TiempoRecarga { get => _tiempoRecarga; set => _tiempoRecarga = value; }
     
@@ -80,7 +75,5 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     public bool Recargando { get => _recargando; set => _recargando = value;}
 
     public float SiquienteDisparo { get => _siguienteDisparo; set => _siguienteDisparo = value; }
-    public GameObject Municion { get => _municion; set => _municion = value; }
-    public GameObject Cargador { get => _cargador; set => _cargador = value; }
 }
 
