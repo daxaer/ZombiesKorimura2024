@@ -25,9 +25,9 @@ public class InteractuablePuerta : Interactuable
             _personaje.GetComponent<InputManagerControls>()._interactuando = false;
             gameObject.tag = "Untagged";
             _puertaCerrada = false;
-            if (_admiracionInButton != null)
-                _admiracionInButton.gameObject.SetActive(false);
-            _admiracionInUI?.gameObject.SetActive(false);
+            //if (_admiracionInButton != null)
+                //_admiracionInButton.gameObject.SetActive(false);
+            //_admiracionInUI?.gameObject.SetActive(false);
             if(Puerta != null)
             {
                 Puerta.SetActive(false);

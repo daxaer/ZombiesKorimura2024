@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Consumibles : MonoBehaviour
 {
     [SerializeField] private protected Transform _SpawnConsumible;
-
+    [SerializeField] private float _despawnTime;
     public Transform SpawnConsumible { get => _SpawnConsumible; }
     private void OnEnable()
     {
@@ -13,7 +13,7 @@ public abstract class Consumibles : MonoBehaviour
     }
     public virtual IEnumerator Desaparecer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(_despawnTime);
         Destroy(gameObject);
     }
 }

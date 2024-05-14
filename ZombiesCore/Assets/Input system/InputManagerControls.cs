@@ -122,6 +122,7 @@ public class InputManagerControls : MonoBehaviour
         interactuableColision = other;
         //other.GetComponent<Interactuable>()?.ActivarUI(_interactuando);
         other.GetComponent<Interactuable>().Personaje = _personaje;
+        other.GetComponent<Interactuable>().PlayerMovement = _playerMovement;
     }
 
     private void OnTriggerExit(Collider other)

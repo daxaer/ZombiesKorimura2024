@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnLoot : MonoBehaviour
 {
-    private float probabilidadDeEspawnear = 1;
+    private float probabilidadDeEspawnear = 50;
     private float suerte = 1;
     [SerializeField] private LootTable _loot;
 

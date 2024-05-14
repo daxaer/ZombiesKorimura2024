@@ -4,31 +4,35 @@ using UnityEngine.UI;
 public abstract class Interactuable : MonoBehaviour
 {
     private protected Personaje _personaje;
-    [SerializeField] protected Image _admiracionInButton;
-    [SerializeField] protected Image _admiracionInUI;
+    private protected PlayerMovement _playerMovement;
+    //[SerializeField] protected Image _admiracionInButton;
+    //[SerializeField] protected Image _admiracionInUI;
     public Personaje Personaje
     {
         set => _personaje = value;
     }
-
+    public PlayerMovement PlayerMovement
+    {
+        set=> _playerMovement = value;
+    }
     public abstract void Interaccion();
 
     public virtual void ActivarUI(bool interactuando)
     {
         if (interactuando)
         {
-            _admiracionInUI?.gameObject.SetActive(true);
-            if (_admiracionInButton != null) _admiracionInButton.gameObject.SetActive(true);
+            //_admiracionInUI?.gameObject.SetActive(true);
+            //if (_admiracionInButton != null) _admiracionInButton.gameObject.SetActive(true);
             interactuando = false;
         }
         else
         {
-            if (_admiracionInButton != null)
-            {
-                _admiracionInButton.gameObject.SetActive(false);
-            }
+            //if (_admiracionInButton != null)
+            //{
+            //    _admiracionInButton.gameObject.SetActive(false);
+            //}
 
-            _admiracionInUI?.gameObject.SetActive(false);
+            //_admiracionInUI?.gameObject.SetActive(false);
             interactuando = true;
         }
     }

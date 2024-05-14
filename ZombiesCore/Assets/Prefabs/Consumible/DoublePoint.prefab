@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6509634325412747578}
   - component: {fileID: 8657604521159278089}
   - component: {fileID: 4996382468128822712}
-  - component: {fileID: 7691864183814801095}
+  - component: {fileID: -2707266010287804880}
   m_Layer: 0
-  m_Name: Nuke
+  m_Name: DoublePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.50980395, g: 0.05901802, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.97966266, b: 0.25, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,7 +107,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2.0000002, z: 0.6582515}
   m_Center: {x: 0, y: 1.4154964e-12, z: -0.00046893957}
---- !u!114 &7691864183814801095
+--- !u!114 &-2707266010287804880
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1661855852261118807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c51d51ce6a68bfb4883234a845f5053f, type: 3}
+  m_Script: {fileID: 11500000, guid: 27f28170ef3d7b346a2572b973af342c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _SpawnConsumible: {fileID: 0}

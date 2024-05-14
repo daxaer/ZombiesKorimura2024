@@ -34,7 +34,10 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     [SerializeField] private float _siguienteDisparo;
     [SerializeField] private float _perdigones;
 
+    [SerializeField] private int _damageWeapon;
+
     public int IdArma { get => _idArma; }
+    public int DamageWeapon { get => _damageWeapon; }
     public string Descripcion { get => _descripcion; }
 
     public float VelocidadDisparo { get => _velocidadDisparo;}
@@ -51,6 +54,14 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
         _factoriaArmas = factoriaArmas;
         UIManager.Instance.UpdateTotalAmmo(MaxAmmo, CurrentAmmo);
         UIManager.Instance.UpdateChargerAmmo(MaxCharger, CurrentCharger);
+    }
+
+    public virtual void RecoverMaxAmmo()
+    {
+        _maxAmmo = CurrentAmmo = MaxAmmo;
+        CurrentCharger = MaxCharger;
+        UIManager.Instance.UpdateTotalAmmo(MaxAmmo, MaxAmmo);
+        UIManager.Instance.UpdateChargerAmmo(MaxCharger, MaxCharger);
     }
     public abstract IEnumerator Recargar();
     

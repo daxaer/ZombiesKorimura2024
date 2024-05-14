@@ -103,7 +103,8 @@ MonoBehaviour:
   _rangoDeVision: 30
   _idEnemigo: Zombie
   _target: {fileID: 0}
-  _vidaEnemigo: 20
+  _enemyLife: 0
+  _starEnemyLife: 10
   _velocidadMovimiento: 100
   _damageEnemy: 1
   _loot: {fileID: 1852641971571155209}

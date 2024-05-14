@@ -43,7 +43,7 @@ public class InteractuableVendedor : Interactuable
         if (_idArma == 0)
         {
             _personaje._statsPersonaje._dineroActual -= _precioArma;
-            _idArma = Random.Range(_contador, 1002);
+            _idArma = Random.Range(_contador, 1004);
 
             _armaEnMostrador = _factoriaArmas.Crear(_idArma, mostrador);
             _puedesAgarrarArma = true;
@@ -99,7 +99,7 @@ public class InteractuableVendedor : Interactuable
 
         foreach (var arma in armas)
         {
-            var especialArma = _factoriaArmas.Crear(1001, arma.transform);
+            var especialArma = _factoriaArmas.Crear(1002, arma.transform);
             especialArma.AddYAsignaArmasEspeciales(this);
         }
     }

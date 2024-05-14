@@ -120,3 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpawnConsumible: {fileID: 0}
+  _despawnTime: 5

@@ -6,7 +6,8 @@ public class MaxAmmo : Consumibles
     {
         if(CompareTag("Player"))
         {
-
+            other.GetComponentInChildren<DetallesArma>().RecoverMaxAmmo();
+            Destroy(gameObject);
         }
     }
 }

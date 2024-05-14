@@ -30,6 +30,7 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     
     public void  SetEnemyLife(float lifeMultiplier)
     {
+        Debug.Log("Enemi life" + _enemyLife); 
         _enemyLife = _starEnemyLife * lifeMultiplier;
     }
 

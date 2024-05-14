@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [Serializable]
-public class StatsPersonaje : IMoney
+public class StatsPersonaje 
 {
     [SerializeField] private int _vidaMax;
     [SerializeField] private int _vidaActual;
@@ -14,6 +14,7 @@ public class StatsPersonaje : IMoney
     [SerializeField] internal int _dineroActual;
     private int _dineroMaximo = 9999;
     [SerializeField] private int _dineroInicial;
+    [SerializeField] private bool _moneyMultiplier;
     [SerializeField] private int _experienciaPorZombieGanada;
     private int _experiencia;
     private int _nivel;
@@ -34,8 +35,18 @@ public class StatsPersonaje : IMoney
 
     public int ExperienciaPorZombieGanada => _experienciaPorZombieGanada;
     public int DineroInicial => _dineroInicial;
+    public bool MoneyMultiplier
+    {
+        get => _moneyMultiplier;
+        set => _moneyMultiplier = value;
+    }
+
     public int DineroMaximo => _dineroMaximo;
-    public int VidaMax => _vidaMax;
+    public int VidaMax
+    {
+        get => _vidaMax;
+        set => _vidaMax = value;
+    }
     public int VidaActual
     {
         get => _vidaActual;
@@ -48,8 +59,6 @@ public class StatsPersonaje : IMoney
             }
         }
     }
-
-    
 
     public int Experiencia
     {
@@ -96,10 +105,7 @@ public class StatsPersonaje : IMoney
         return nivel == ExperienciaPorNivel.Length - 1;
     }
 
-    public void AddMoney(int money)
-    {
-        _dineroActual += money;
-    }
+   
     #endregion
 
 }
@@ -166,6 +172,33 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
         _statsPersonaje.VidaActual = _statsPersonaje.VidaMax;
         _statsPersonaje.Experiencia = 0;
         _statsPersonaje._dineroActual = _statsPersonaje.DineroInicial;
+        UIManager.Instance.UpdateMoney(_statsPersonaje._dineroActual);
+    }
+    
+    public void StartMoneyX2()
+    {
+        StopCoroutine(MoneyX2());
+        StartCoroutine(MoneyX2());
+    }
+    IEnumerator MoneyX2()
+    {
+        _statsPersonaje.MoneyMultiplier = true;
+        yield return new WaitForSeconds(30f);
+        _statsPersonaje.MoneyMultiplier = false;
+    }
+
+    public void AddMoney(int money)
+    {
+        if(_statsPersonaje.MoneyMultiplier)
+        {
+            _statsPersonaje._dineroActual += money * 2;
+        }
+        else
+        {
+            _statsPersonaje._dineroActual += money;
+        }
+        Debug.Log("SumarDinero");
+        UIManager.Instance.UpdateMoney(_statsPersonaje._dineroActual);
     }
     public abstract void SetArma(InterfaceArma arma);
     public abstract void OnTriggerStay(Collider other);

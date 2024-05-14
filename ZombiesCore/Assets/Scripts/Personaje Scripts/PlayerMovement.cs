@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _rechargeRun;
     private float _delayRun;
     private float _currentStamina;
-
+    private bool _estaminaInfinita;
     public Vector3 AverageVelocity
     {
         get
@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         MaxQueueSize = Mathf.CeilToInt(1f / historicalPositionInterval * historicalPositionDuration);
         historicalVelocities = new Queue<Vector3>(MaxQueueSize);
+        _estaminaInfinita = false;
     }
     private void Start()
     {
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_playerRun && _currentStamina > 0 && !_rechargeRun)
+        if (_playerRun && (!_estaminaInfinita || _currentStamina > 0) && !_rechargeRun) // Agrega la condición !_estaminaInfinita || _currentStamina > 0
         {
             if (_myDirection == Vector3.zero)
             {
@@ -69,23 +70,29 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMax);
-                _currentStamina -= Time.fixedDeltaTime;
+                if (!_estaminaInfinita) // Solo disminuye la estamina si no es infinita
+                {
+                    _currentStamina -= Time.fixedDeltaTime;
+                }
             }
         }
         else
         {
-            if (_currentStamina <= 0)
+            if (!_estaminaInfinita && _currentStamina <= 0) // Agrega la condición !_estaminaInfinita
             {
                 _delayRun = 2f;
                 _rechargeRun = true;
             }
             _playerRigidbody.velocity = _myDirection.normalized * (_miJugador._statsPersonaje.VelocidadMovimiento);
-            _currentStamina += Time.fixedDeltaTime;
-            _currentStamina = Mathf.Min(_currentStamina, _maxStamina);
-            if (_currentStamina <= 0 && !_rechargeRun)
+            if (!_estaminaInfinita) // Solo incrementa la estamina si no es infinita
             {
-                _delayRun = 2f;
-                _rechargeRun = true;
+                _currentStamina += Time.fixedDeltaTime;
+                _currentStamina = Mathf.Min(_currentStamina, _maxStamina);
+                if (_currentStamina <= 0 && !_rechargeRun)
+                {
+                    _delayRun = 2f;
+                    _rechargeRun = true;
+                }
             }
         }
         if (_rechargeRun)
@@ -97,10 +104,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     public void RunPlayer(bool runPlayer)
     {
         _playerRun = runPlayer;
+    }
+    public void InfinityStamina( )
+    {
+        _estaminaInfinita = true;
     }
 
     public void AsignarDireccion(Vector2 direccion)

@@ -8,15 +8,7 @@ public class DineroX2 : Consumibles
     {
         if (other.CompareTag("Player"))
         {
-            var Enemigos = EncontrarEnemigoMasCercano.Instance.Enemigos;
-
-            foreach (var enemy in Enemigos)
-            {
-                if(enemy.isActiveAndEnabled)
-                {
-                    enemy.GetComponent<Damageable>().DoDamage(9999);
-                }
-            }
+            other.gameObject.GetComponent<Personaje>().StartMoneyX2();
             Destroy(gameObject);
         }
     }

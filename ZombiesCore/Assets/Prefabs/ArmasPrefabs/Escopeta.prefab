@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 271345066, guid: d0ea8af7766c8dc478d0f56d1a431428, type: 3}
+  m_Sprite: {fileID: -2116357429, guid: d0ea8af7766c8dc478d0f56d1a431428, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,19 +136,18 @@ MonoBehaviour:
   _bala: {fileID: 6768786369264024079, guid: f633e5c3de9048b468883d80ae072145, type: 3}
   _descripcion: Escopeta
   RequiereNivel: 0
-  _rarezaArma: 0
+  _rarezaArma: 1
   NivelRequerido: 0
   _recargando: 0
   _tiempoRecarga: 4
   _tiempoRecargaAutomatica: 30
-  _maxBalas: 40
-  _actualBalas: 40
-  _maxBalasCargador: 8
-  _actualbalasCargador: 8
+  _maxAmmo: 20
+  _currentAmmo: 20
+  _maxCharger: 4
+  _currentCharger: 4
   _siguienteDisparo: 0
   _perdigones: 8
-  _municion: {fileID: 0}
-  _cargador: {fileID: 0}
+  _damageWeapon: 3
 --- !u!1 &8184375675393646287
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class Bala : RecyclableObject
     [SerializeField] float velocidadMin;
     [SerializeField] private int durabilidad;
     [SerializeField] private int durabilidadInicial;
+    [SerializeField] private GameObject player;
+    [SerializeField] private int _damage;
     private Vector3 _targetDireccion;
     private Transform _posicionInicial;
 
@@ -29,7 +31,8 @@ public class Bala : RecyclableObject
     {
         _rigidbody = gameObject.GetComponent<Rigidbody>();
         _posicionInicial = gameObject.GetComponentInParent<Transform>();
-        //gameObject.transform.rotation = gameObject.GetComponentInParent<Transform>().rotation;
+        player = GameObject.FindGameObjectWithTag("Player");
+        _damage = GetComponentInParent<DetallesArma>().DamageWeapon;
     }
 
     internal override void Init()
@@ -52,11 +55,7 @@ public class Bala : RecyclableObject
     {
         if (other.CompareTag("Enemy"))
         {
-            IMoney moneyManager = GetComponent<IMoney>();
-            if (moneyManager != null)
-            {
-                moneyManager.AddMoney(10);
-            }
+            player.GetComponent<Personaje>().AddMoney(10);
 
             if (ApliKnockback)
             {
@@ -70,7 +69,7 @@ public class Bala : RecyclableObject
             durabilidad--;
             Debug.Log("durabilidad" + durabilidad);
             var objetoDamageable = other.gameObject.GetComponent<Damageable>();
-            objetoDamageable?.DoDamage(1);
+            objetoDamageable?.DoDamage(_damage);
             if (durabilidad <= 0)
             {
                 CancelInvoke(nameof(Reciclar));

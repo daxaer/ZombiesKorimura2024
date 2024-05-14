@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 271345066, guid: d0ea8af7766c8dc478d0f56d1a431428, type: 3}
+  m_Sprite: {fileID: 898826994, guid: d0ea8af7766c8dc478d0f56d1a431428, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -136,19 +136,18 @@ MonoBehaviour:
   _bala: {fileID: 6768786369264024079, guid: 172b5f4f9b5a1d24a964d35c1a753a08, type: 3}
   _descripcion: Arma Pesada
   RequiereNivel: 0
-  _rarezaArma: 0
+  _rarezaArma: 1
   NivelRequerido: 0
   _recargando: 0
   _tiempoRecarga: 5
   _tiempoRecargaAutomatica: 10
-  _maxBalas: 20
-  _actualBalas: 20
-  _maxBalasCargador: 5
-  _actualbalasCargador: 5
+  _maxAmmo: 20
+  _currentAmmo: 20
+  _maxCharger: 5
+  _currentCharger: 5
   _siguienteDisparo: 0
   _perdigones: 0
-  _municion: {fileID: 0}
-  _cargador: {fileID: 0}
+  _damageWeapon: 35
 --- !u!1 &8184375675393646287
 GameObject:
   m_ObjectHideFlags: 0
