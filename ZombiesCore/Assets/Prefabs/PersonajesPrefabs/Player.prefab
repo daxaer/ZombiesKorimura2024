@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8916261644008970781}
   - component: {fileID: 2432174052516739597}
   - component: {fileID: 7672904304312710856}
+  - component: {fileID: 1553823881365596912}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -202,8 +203,7 @@ MonoBehaviour:
     _dineroInicial: 100
     _moneyMultiplier: 0
     _experienciaPorZombieGanada: 30
-  _armaSystem:
-    _armasTotales: 2
+  _armaSystem: {fileID: 1553823881365596912}
   _idPersonaje: Humano
   _posicionArma: {fileID: 8656032664645088986}
 --- !u!136 &7672904304312710856
@@ -229,6 +229,22 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: -0.07}
+--- !u!114 &1553823881365596912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916261644008970773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1228b8b30c353478f9f42628e9f9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxWeapons: 2
+  _currentWeapons: 0
+  _currentWeapon: 0
+  Personaje: {fileID: 2432174052516739597}
 --- !u!1 &8916261645273105321
 GameObject:
   m_ObjectHideFlags: 0

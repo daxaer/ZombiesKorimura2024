@@ -80,6 +80,15 @@ public partial class @Controles: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CambiarArma"",
+                    ""type"": ""Value"",
+                    ""id"": ""9616fd86-3890-45c6-bf8f-431df311dc05"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -225,6 +234,17 @@ public partial class @Controles: IInputActionCollection2, IDisposable
                     ""action"": ""Interactuando"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5f50fc6-9b13-4d4e-9cbd-5f007676fd86"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CambiarArma"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -239,6 +259,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_CambiarCamara = m_Gameplay.FindAction("CambiarCamara", throwIfNotFound: true);
+        m_Gameplay_CambiarArma = m_Gameplay.FindAction("CambiarArma", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +327,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_CambiarCamara;
+    private readonly InputAction m_Gameplay_CambiarArma;
     public struct GameplayActions
     {
         private @Controles m_Wrapper;
@@ -316,6 +338,7 @@ public partial class @Controles: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @CambiarCamara => m_Wrapper.m_Gameplay_CambiarCamara;
+        public InputAction @CambiarArma => m_Wrapper.m_Gameplay_CambiarArma;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -343,6 +366,9 @@ public partial class @Controles: IInputActionCollection2, IDisposable
             @CambiarCamara.started += instance.OnCambiarCamara;
             @CambiarCamara.performed += instance.OnCambiarCamara;
             @CambiarCamara.canceled += instance.OnCambiarCamara;
+            @CambiarArma.started += instance.OnCambiarArma;
+            @CambiarArma.performed += instance.OnCambiarArma;
+            @CambiarArma.canceled += instance.OnCambiarArma;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -365,6 +391,9 @@ public partial class @Controles: IInputActionCollection2, IDisposable
             @CambiarCamara.started -= instance.OnCambiarCamara;
             @CambiarCamara.performed -= instance.OnCambiarCamara;
             @CambiarCamara.canceled -= instance.OnCambiarCamara;
+            @CambiarArma.started -= instance.OnCambiarArma;
+            @CambiarArma.performed -= instance.OnCambiarArma;
+            @CambiarArma.canceled -= instance.OnCambiarArma;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -390,5 +419,6 @@ public partial class @Controles: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnCambiarCamara(InputAction.CallbackContext context);
+        void OnCambiarArma(InputAction.CallbackContext context);
     }
 }

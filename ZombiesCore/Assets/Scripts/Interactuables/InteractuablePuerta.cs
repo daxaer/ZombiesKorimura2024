@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class InteractuablePuerta : Interactuable
 {
-    
     private bool _puertaCerrada = true;
     [SerializeField] private int _precioDesbloqueoPuerta;
     [SerializeField] private GameObject[] spawns;

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [Serializable]
-public class StatsPersonaje 
+public class StatsPersonaje
 {
     [SerializeField] private int _vidaMax;
     [SerializeField] private int _vidaActual;
@@ -18,7 +18,7 @@ public class StatsPersonaje
     [SerializeField] private int _experienciaPorZombieGanada;
     private int _experiencia;
     private int _nivel;
-    private static readonly int[] ExperienciaPorNivel = {100,150,200,250,300,350,400 } ;
+    private static readonly int[] ExperienciaPorNivel = { 100, 150, 200, 250, 300, 350, 400 };
     private bool _armaEspecialObtenida;
 
     #region LevelSystem
@@ -26,7 +26,7 @@ public class StatsPersonaje
     public void AddExperiencia(int experienciaRecibida, int multiplicador = 1)
     {
         _experiencia += experienciaRecibida * multiplicador;
-        while (_experiencia>= GetExperienciaParaSiguienteNivelAutomatico(_nivel))
+        while (_experiencia >= GetExperienciaParaSiguienteNivelAutomatico(_nivel))
         {
             _experiencia -= GetExperienciaParaSiguienteNivelAutomatico(_nivel);
             _nivel++;
@@ -62,8 +62,8 @@ public class StatsPersonaje
 
     public int Experiencia
     {
-        get=> _experiencia;
-        set=> _experiencia = value;
+        get => _experiencia;
+        set => _experiencia = value;
     }
     public bool ArmaEspecialObtenida { get => _armaEspecialObtenida; set { _armaEspecialObtenida = value; } }
 
@@ -78,7 +78,7 @@ public class StatsPersonaje
         get => _velocidadMax;
         set => _velocidadMax = value;
     }
-    public float ExperienciaNormalizada => (float) _experiencia / GetExperienciaParaSiguienteNivelAutomatico(_nivel);
+    public float ExperienciaNormalizada => (float)_experiencia / GetExperienciaParaSiguienteNivelAutomatico(_nivel);
     public int GetExperienciaParaSiguienteNivelAutomatico(int nivel)
     {
         return nivel * 11;
@@ -99,15 +99,12 @@ public class StatsPersonaje
         throw new Exception("Este nivel no existe : " + nivel);
     }
     public bool EsMaximoNivel => EsMaximoNivelf(_nivel);
-    
+
     public bool EsMaximoNivelf(int nivel)
     {
         return nivel == ExperienciaPorNivel.Length - 1;
     }
-
-   
     #endregion
-
 }
 
 public abstract class Personaje : MonoBehaviour, Damageable, ITarget
@@ -133,6 +130,8 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
 
     public abstract void ConfigurarFactoriaGameplay(FactoriaMainGameplay factoriaActualGameplay);
     public abstract void HandlePersonajeAction();
+
+    public ArmaSystem ArmaSystem { get { return _armaSystem; } }
 
     public void DoDamage(int damage)
     {
@@ -174,7 +173,7 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
         _statsPersonaje._dineroActual = _statsPersonaje.DineroInicial;
         UIManager.Instance.UpdateMoney(_statsPersonaje._dineroActual);
     }
-    
+
     public void StartMoneyX2()
     {
         StopCoroutine(MoneyX2());
@@ -189,7 +188,7 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
 
     public void AddMoney(int money)
     {
-        if(_statsPersonaje.MoneyMultiplier)
+        if (_statsPersonaje.MoneyMultiplier)
         {
             _statsPersonaje._dineroActual += money * 2;
         }
@@ -197,7 +196,6 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
         {
             _statsPersonaje._dineroActual += money;
         }
-        Debug.Log("SumarDinero");
         UIManager.Instance.UpdateMoney(_statsPersonaje._dineroActual);
     }
     public abstract void SetArma(InterfaceArma arma);

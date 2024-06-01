@@ -49,17 +49,33 @@ public class InputManagerControls : MonoBehaviour
         controles.Gameplay.Interactuando.performed += Interaccion;
         controles.Gameplay.Interactuando.canceled += Interaccion;
     }
+    private void ChangeWeapon(InputAction.CallbackContext context)
+    {
+        var cambiarArma = context.ReadValue<Vector2>();
+        if (cambiarArma.y > 0)
+        {
+            _personaje.ArmaSystem.ChangeWeapon(1);
+            Debug.Log("cambiando arma");
+        }
+        else if (cambiarArma.y < 0)
+        {
+            _personaje.ArmaSystem.ChangeWeapon(-1);
+            Debug.Log("cambiando arma");
+        }
+    }
 
     private void CambiarCamarasAccion(InputAction.CallbackContext context)
     {
         var cambiarCamaraPresionado = context.ReadValueAsButton();
         if (cambiarCamaraPresionado)
+
+
         {
             var camera3eraPersona = CambiadorCamaras.TerceraPersonaCamara;
             var cameraPrimeraPersona = CambiadorCamaras.PrimeraPersonaCamara;
 
             CambiadorCamaras.CambiarCamara(CambiadorCamaras.EstaCamaraActiva(camera3eraPersona) ? cameraPrimeraPersona : camera3eraPersona);
-            
+
         }
 
     }
@@ -69,16 +85,16 @@ public class InputManagerControls : MonoBehaviour
         var presButton = obj.ReadValueAsButton();
         if (!presButton)
         {
-             PersonajeAction?.Invoke();
+            PersonajeAction?.Invoke();
         }
     }
 
     private void Interaccion(InputAction.CallbackContext obj)
     {
         var presButton = obj.ReadValueAsButton();
-        if(!presButton)
+        if (!presButton)
         {
-            if(_interactuando)
+            if (_interactuando)
             {
                 interactuableColision.GetComponent<Interactuable>().Interaccion();
             }
@@ -107,6 +123,9 @@ public class InputManagerControls : MonoBehaviour
         controles.Gameplay.Run.canceled -= RunPlayer;
         controles.Gameplay.CambiarCamara.performed -= CambiarCamarasAccion;
         controles.Gameplay.CambiarCamara.canceled -= CambiarCamarasAccion;
+        controles.Gameplay.CambiarArma.performed -= ChangeWeapon;
+        controles.Gameplay.CambiarArma.canceled -= ChangeWeapon;
+
     }
 
 

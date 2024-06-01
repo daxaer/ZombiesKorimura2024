@@ -15,13 +15,15 @@ public class GameplayInstaller : MonoBehaviour
     [SerializeField] private SeguirMouse MouseApuntarGameObject;
     //[SerializeField] private ControladorCamara _controladorCamara;
     [SerializeField] private InteractuableVendedor _vendedor;
+    [SerializeField] private InteractuableComprarArmas[] _armasPared;
+    [SerializeField] private Personaje consumer;
     private FactoriaMainGameplay _abstractFactory;
     private bool slowMotion;
 
     //debugin
     [Header("Armas Equipada")]
     [SerializeField] private int arma;
-    
+
     private void OnEnable()
     {
         CambiadorCamaras.TerceraPersonaCamara = camera3eraPersona;
@@ -39,20 +41,25 @@ public class GameplayInstaller : MonoBehaviour
     {
         var factoriaPersonajes = new FactoriaPersonajes(Instantiate(_personajesConfiguracion));
         var factoriaArmas = new FactoriaArmas(Instantiate(_armasConfiguracion));
-        var factoriaEnemigo = new FactoriaEnemigo(Instantiate(_configuracionEnemigo));   
+        var factoriaEnemigo = new FactoriaEnemigo(Instantiate(_configuracionEnemigo));
 
         _abstractFactory = new FactoriaMainGameplay(factoriaPersonajes, factoriaArmas, factoriaEnemigo);
-        var consumer = _abstractFactory.CrearPersonaje("Humano"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
-        var pistola = _abstractFactory.CrearYAsignarAPersonaje(arma, consumer);
-        pistola.ConfigurarFactoriaArmas(factoriaArmas); //EL ASIGNAR LA FACTORIA ESTA BIEN LO QUE SE TIENE QUE MEJORAR ES QUE FUNCIONE DINAMICAMENTE ESE ID QUE SE LE ESTA PASANDO
+        consumer = _abstractFactory.CrearPersonaje("Humano"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
+        var arma = _abstractFactory.CrearYAsignarAPersonaje(this.arma, consumer);
+        arma.ConfigurarFactoriaArmas(factoriaArmas); //EL ASIGNAR LA FACTORIA ESTA BIEN LO QUE SE TIENE QUE MEJORAR ES QUE FUNCIONE DINAMICAMENTE ESE ID QUE SE LE ESTA PASANDO
         _spawnerZombies.ConfigurarFactoriaEnemigos(factoriaEnemigo);
         MouseApuntarGameObject.player = consumer.transform;
         //_controladorCamara.player = consumer.transform;
         camera3eraPersona.Follow = MouseApuntarGameObject.transform;
         cameraPrimeraPersona.Follow = consumer.transform;
         consumer.ConfigurarFactoriaGameplay(_abstractFactory);
-        consumer.SetArma(pistola);
+        consumer.SetArma(arma);
         _vendedor.ConfigurarFactoriaArma(factoriaArmas);
+
+        foreach (InteractuableComprarArmas armas in _armasPared)
+        {
+            armas.ConfigurarFactoriaArma(factoriaArmas);
+        }
         //var consumer2 = _abstractFactory.CrearPersonaje("Gato"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
     }
 
@@ -61,5 +68,10 @@ public class GameplayInstaller : MonoBehaviour
         slowMotion = !slowMotion;
 
         Time.timeScale = slowMotion ? 0.33f : 1.0f;
+    }
+
+    public void SetWeapon(InterfaceArma arma)
+    {
+        consumer.SetArma(arma);
     }
 }
