@@ -28,7 +28,7 @@ namespace AllIn1SpriteShader
 
         public override void OnInspectorGUI()
         {
-            ChooseAndDisplayAssetImage();
+            ChooseAndDiplayAssetImage();
 
             AllIn1Shader myScript = (AllIn1Shader)target;
 
@@ -36,63 +36,54 @@ namespace AllIn1SpriteShader
 
             if (GUILayout.Button("Deactivate All Effects"))
             {
-                for (int i = 0; i < targets.Length; i++) ((AllIn1Shader)targets[i]).ClearAllKeywords();
-                AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Deactivated All Effects");
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    (targets[i] as AllIn1Shader).ClearAllKeywords();
+                }
             }
 
 
             if (GUILayout.Button("New Clean Material"))
             {
-                bool successOperation = true;
                 for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader)targets[i]).TryCreateNew();
+                    (targets[i] as AllIn1Shader).TryCreateNew();
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Clean Material");
             }
 
 
             if (GUILayout.Button("Create New Material With Same Properties (SEE DOC)"))
             {
-                bool successOperation = true;
                 for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader)targets[i]).MakeCopy();
+                    (targets[i] as AllIn1Shader).MakeCopy();
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Copy Created");
             }
 
             if (GUILayout.Button("Save Material To Folder (SEE DOC)"))
             {
-                bool successOperation = true;
-                for(int i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader) targets[i]).SaveMaterial();
+                    (targets[i] as AllIn1Shader).SaveMaterial();
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Material Saved");
             }
 
             if (GUILayout.Button("Apply Material To All Children"))
             {
-                bool successOperation = true;
-                for(int i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader) targets[i]).ApplyMaterialToHierarchy();
+                    (targets[i] as AllIn1Shader).ApplyMaterialToHierarchy();
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Material Applied To Children");
-                else EditorUtility.DisplayDialog("No children found", "All In 1 Shader component couldn't find any children to this GameObject (" + targets[0].name + ")", "Ok");
             }
 
             if (myScript.shaderTypes != AllIn1Shader.ShaderTypes.Urp2dRenderer)
             {
                 if (GUILayout.Button("Render Material To Image"))
                 {
-                    bool successOperation = true;
-                    for(int i = 0; i < targets.Length; i++)
+                    for (int i = 0; i < targets.Length; i++)
                     {
-                        successOperation &= ((AllIn1Shader) targets[i]).RenderToImage();
+                        (targets[i] as AllIn1Shader).RenderToImage();
                     }
-                    if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Material Rendered To Image");
                 }
             }
 
@@ -106,11 +97,11 @@ namespace AllIn1SpriteShader
                 myScript.shaderTypes = (AllIn1Shader.ShaderTypes)EditorGUILayout.EnumPopup(myScript.shaderTypes);
                 if (previousShaderType != (int)myScript.shaderTypes)
                 {
-                    for (int i = 0; i < targets.Length; i++) ((AllIn1Shader)targets[i]).CheckIfValidTarget();
+                    for (int i = 0; i < targets.Length; i++) (targets[i] as AllIn1Shader).CheckIfValidTarget();
                     if (myScript == null) return;
                     if (isUrp || myScript.shaderTypes != AllIn1Shader.ShaderTypes.Urp2dRenderer)
                     {
-                        AllIn1ShaderWindow.SceneViewNotificationAndLog(myScript.gameObject.name + " shader variant has been changed to: " + myScript.shaderTypes);
+                        Debug.Log(myScript.gameObject.name + " shader variant has been changed to: " + myScript.shaderTypes);
                         myScript.SetSceneDirty();
 
                         Renderer sr = myScript.GetComponent<Renderer>();
@@ -167,8 +158,10 @@ namespace AllIn1SpriteShader
 
                 if (GUILayout.Button("Create And Add Normal Map"))
                 {
-                    for (int i = 0; i < targets.Length; i++) ((AllIn1Shader)targets[i]).CreateAndAssignNormalMap();
-                    AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Creating Normal Map");
+                    for (int i = 0; i < targets.Length; i++)
+                    {
+                        (targets[i] as AllIn1Shader).CreateAndAssignNormalMap();
+                    }
                 }
                 serializedObject.Update();
                 EditorGUILayout.PropertyField(m_NormalStrength, new GUIContent("Normal Strength"), GUILayout.Height(20));
@@ -187,21 +180,17 @@ namespace AllIn1SpriteShader
 
             if (GUILayout.Button("Sprite Atlas Auto Setup"))
             {
-                bool successOperation = true;
-                for(int i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader) targets[i]).ToggleSetAtlasUvs(true);
+                    (targets[i] as AllIn1Shader).ToggleSetAtlasUvs(true);
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Sprite Atlas Auto Setup");
             }
             if (GUILayout.Button("Remove Sprite Atlas Configuration"))
             {
-                bool successOperation = true;
-                for(int i = 0; i < targets.Length; i++)
+                for (int i = 0; i < targets.Length; i++)
                 {
-                    successOperation &= ((AllIn1Shader) targets[i]).ToggleSetAtlasUvs(false);
+                    (targets[i] as AllIn1Shader).ToggleSetAtlasUvs(false);
                 }
-                if(successOperation) AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Remove Sprite Atlas Configuration");
             }
 
             EditorGUILayout.Space();
@@ -212,26 +201,24 @@ namespace AllIn1SpriteShader
                 for(int i = targets.Length - 1; i >= 0; i--)
                 {
                     DestroyImmediate(targets[i] as AllIn1Shader);
-                    ((AllIn1Shader)targets[i]).SetSceneDirty();
+                    (targets[i] as AllIn1Shader).SetSceneDirty();
                 }
-                AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Component Removed");
             }
 
             if (GUILayout.Button("REMOVE COMPONENT AND MATERIAL"))
             {
                 for (int i = 0; i < targets.Length; i++)
                 {
-                    ((AllIn1Shader)targets[i]).CleanMaterial();
+                    (targets[i] as AllIn1Shader).CleanMaterial();
                 }
                 for (int i = targets.Length - 1; i >= 0; i--)
                 {
                     DestroyImmediate(targets[i] as AllIn1Shader);
                 }
-                AllIn1ShaderWindow.ShowSceneViewNotification("AllIn1SpriteShader: Component And Material Removed");
             }
         }
 
-        private void ChooseAndDisplayAssetImage()
+        private void ChooseAndDiplayAssetImage()
         {
             if(!EditorPrefs.HasKey("allIn1ImageConfig"))
             {

@@ -44,9 +44,9 @@ namespace AllIn1SpriteShader
             }
         }
 
-        public bool GetAndSetUVs()
+        public void GetAndSetUVs()
         {
-            if (!GetRendererReferencesIfNeeded()) return false;
+            if (!GetRendererReferencesIfNeeded()) return;
 
             if (!isUI)
             {
@@ -85,8 +85,6 @@ namespace AllIn1SpriteShader
                 uiImage.material.SetFloat(minYuv, r.yMin);
                 uiImage.material.SetFloat(maxYuv, r.yMax);
             }
-
-            return true;
         }
 
         public void ResetAtlasUvs()
