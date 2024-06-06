@@ -1,13 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InteractuablePuerta : Interactuable
 {
     private bool _puertaCerrada = true;
     [SerializeField] private int _precioDesbloqueoPuerta;
     [SerializeField] private GameObject[] spawns;
-    [SerializeField] private GameObject Puerta;
+    [SerializeField] private GameObject UI;
+    [SerializeField] private TextMeshProUGUI _priceText;
+    [SerializeField] private Animator[] _animation;
 
+    private void Awake()
+    {
+        _priceText.text = _precioDesbloqueoPuerta.ToString() + " $";
+    }
     public override void Interaccion()
     {
         Interactuando();
@@ -23,15 +30,13 @@ public class InteractuablePuerta : Interactuable
             Debug.Log("Abierto");
             _personaje.GetComponent<InputManagerControls>()._interactuando = false;
             gameObject.tag = "Untagged";
-            _puertaCerrada = false;
-            //if (_admiracionInButton != null)
-                //_admiracionInButton.gameObject.SetActive(false);
-            //_admiracionInUI?.gameObject.SetActive(false);
-            if(Puerta != null)
+
+            for (int i = 0; i < _animation.Length - 1; i++)
             {
-                Puerta.SetActive(false);
+                _animation[i].enabled = true;
             }
-            gameObject.SetActive(false);
+            this.gameObject.GetComponent<Animator>().enabled = true;
+            _puertaCerrada = false;
         }
     }
     private void unlockSpawn()
@@ -41,5 +46,19 @@ public class InteractuablePuerta : Interactuable
             spawns[i].gameObject.SetActive(true);
         }
     }
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && _puertaCerrada)
+        {
+            UI.gameObject.SetActive(true);
+            UI.gameObject.GetComponent<Animator>().Play("Open");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && _puertaCerrada)
+        {
+            UI.gameObject.GetComponent<Animator>().Play("Close");
+        }
+    }
 }

@@ -200,7 +200,7 @@ MonoBehaviour:
     _velocidadMax: 4
     _velocidadMovimiento: 2
     _dineroActual: 0
-    _dineroInicial: 100
+    _dineroInicial: 1000
     _moneyMultiplier: 0
     _experienciaPorZombieGanada: 30
   _armaSystem: {fileID: 1553823881365596912}
@@ -255,6 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8916261645273105320}
   - component: {fileID: 8916261645273105323}
+  - component: {fileID: 3148771838688931729}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -297,7 +298,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0834f51f569846428bee704a470ff74, type: 2}
+  - {fileID: 2100000, guid: 0b99b1921d95f464ea197982a9043e0a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -329,3 +330,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3148771838688931729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916261645273105321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee158225ee1e59f4791627785501d950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shaderTypes: 0
+  normalStrength: 5
+  normalSmoothing: 1
+  computingNormal: 0
