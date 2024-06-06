@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InteractuableComprarArmas : Interactuable
 {
+    [SerializeField] private GameObject UI;
+    [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private int _precioArma;
     [SerializeField] private DetallesArma _arma;
     [SerializeField] private int _idArma = 0;
@@ -13,6 +16,10 @@ public class InteractuableComprarArmas : Interactuable
     public void ConfigurarFactoriaArma(FactoriaArmas factoriaArmas)
     {
         _factoriaArmas = factoriaArmas;
+    }
+    public void Awake()
+    {
+        _priceText.text = _precioArma.ToString();
     }
 
     public override void Interaccion()
@@ -34,5 +41,21 @@ public class InteractuableComprarArmas : Interactuable
     private void AsignarArma()
     {
         _personaje.ArmaSystem.AsignarArma(_idArma, _factoriaArmas);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") )
+        {
+            UI.gameObject.SetActive(true);
+            UI.gameObject.GetComponent<Animator>().Play("Open");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") )
+        {
+            UI.gameObject.GetComponent<Animator>().Play("Close");
+        }
     }
 }

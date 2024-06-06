@@ -27,7 +27,7 @@ public class InteractuablePuerta : Interactuable
         {
             unlockSpawn();
             _personaje._statsPersonaje._dineroActual -= _precioDesbloqueoPuerta;
-            Debug.Log("Abierto");
+            UIManager.Instance.UpdateMoney(_personaje._statsPersonaje._dineroActual);
             _personaje.GetComponent<InputManagerControls>()._interactuando = false;
             gameObject.tag = "Untagged";
 
@@ -36,6 +36,7 @@ public class InteractuablePuerta : Interactuable
                 _animation[i].enabled = true;
             }
             this.gameObject.GetComponent<Animator>().enabled = true;
+            UI.gameObject.GetComponent<Animator>().Play("Close");
             _puertaCerrada = false;
         }
     }

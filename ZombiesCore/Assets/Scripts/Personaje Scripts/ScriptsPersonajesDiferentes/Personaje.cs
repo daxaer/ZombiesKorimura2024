@@ -141,9 +141,11 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
         if (_statsPersonaje.VidaActual <= 0)
         {
             Debug.Log("Muerto");
+
             StopCoroutine("Recuperacion");
             _statsPersonaje.VelocidadMovimiento = 0;
             CursorManager.Instance.Damage(_statsPersonaje.VidaActual);
+            UIManager.Instance.OpenGameOver();
         }
         else
         {

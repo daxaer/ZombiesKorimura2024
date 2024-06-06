@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.557868, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2747282420934341767}
@@ -96,13 +96,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _knockbackStrength: 30000
-  ApliKnockback: 1
+  ApliKnockback: 0
   stunTime: 1
   shotAngle: 10
-  _velocidadBala: 1000
-  velocidadMax: 1000
-  velocidadMin: 1000
+  _velocidadBala: 100
+  velocidadMax: 100
+  velocidadMin: 100
   durabilidad: 100
+  durabilidadInicial: 0
+  player: {fileID: 0}
+  _damage: 0
+  _moneyToAdd: 10
   _tiempoDeVidaBala: 5
 --- !u!1 &8521862044831771724
 GameObject:

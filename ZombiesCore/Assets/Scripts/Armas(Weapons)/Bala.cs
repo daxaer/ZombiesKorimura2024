@@ -19,6 +19,7 @@ public class Bala : RecyclableObject
     [SerializeField] private int durabilidadInicial;
     [SerializeField] private GameObject player;
     [SerializeField] private int _damage;
+    [SerializeField] private int _moneyToAdd;
     private Vector3 _targetDireccion;
     private Transform _posicionInicial;
 
@@ -55,7 +56,7 @@ public class Bala : RecyclableObject
     {
         if (other.CompareTag("Enemy"))
         {
-            player.GetComponent<Personaje>().AddMoney(10);
+            player.GetComponent<Personaje>().AddMoney(_moneyToAdd);
 
             if (ApliKnockback)
             {
