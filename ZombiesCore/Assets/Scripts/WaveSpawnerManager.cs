@@ -119,6 +119,7 @@ public class WaveSpawnerManager : Singleton<WaveSpawnerManager>
         _round++;
         currentLifeMultiplier = _lifeMultiplier * _round;
         UIManager.Instance.UpdateCurrentRound(_round);
+        Debug.Log("ronda actual" + _round);
         //AGREGAR LOS ENEMIGOS VIVOS CUANTOS VAN A SER Y APLICAR LA FORMULA DE LOS ZOMBIES DE COD
 
         if (_jugadores == 1)
