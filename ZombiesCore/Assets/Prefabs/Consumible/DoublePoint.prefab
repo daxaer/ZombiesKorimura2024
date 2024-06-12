@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SpawnConsumible: {fileID: 0}
   _despawnTime: 5
+  audioConfig: {fileID: 11400000, guid: 61354227a6ca13640b61b9b5e3422858, type: 2}
 --- !u!95 &5121232724911965575
 Animator:
   serializedVersion: 5

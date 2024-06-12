@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8f533c0a7a7e4a43b450afe1e37f160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personaje: {fileID: 0}
   playerPosicion: {fileID: 0}
 --- !u!114 &-8076226516090813272
 MonoBehaviour:
@@ -61,8 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7190b6c2ad0cf41aafc8c4652a1288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personaje: {fileID: 0}
   playerPosicion: {fileID: 0}
   _damageToApply: 1
+  audio: {fileID: 0}
 --- !u!1102 &-7414764830626945029
 AnimatorState:
   serializedVersion: 6
@@ -603,8 +606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7190b6c2ad0cf41aafc8c4652a1288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  personaje: {fileID: 0}
   playerPosicion: {fileID: 0}
   _damageToApply: 1
+  audio: {fileID: 11400000, guid: ebbff7aca2100494e9113297f39f0cd0, type: 2}
 --- !u!206 &6666936005027106989
 BlendTree:
   m_ObjectHideFlags: 1

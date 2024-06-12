@@ -1,6 +1,8 @@
 using UnityEngine;
 using Cinemachine;
 using DG.Tweening;
+using Audio.Views;
+using Audio.Controllers;
 
 public class GameplayInstaller : MonoBehaviour
 {
@@ -19,6 +21,10 @@ public class GameplayInstaller : MonoBehaviour
     [SerializeField] private Personaje consumer;
     private FactoriaMainGameplay _abstractFactory;
     private bool slowMotion;
+
+    //Audio
+    [SerializeField] private AudioChannelContainerView _audioChannelContainerView;
+    [SerializeField] private AudioConfig _audioConfig;
 
     //debugin
     [Header("Armas Equipada")]
@@ -55,13 +61,17 @@ public class GameplayInstaller : MonoBehaviour
         consumer.ConfigurarFactoriaGameplay(_abstractFactory);
         consumer.SetArma(arma);
         _vendedor.ConfigurarFactoriaArma(factoriaArmas);
+        UIManager.Instance.SetPlayer(consumer);
 
         foreach (InteractuableComprarArmas armas in _armasPared)
         {
             armas.ConfigurarFactoriaArma(factoriaArmas);
         }
-        //var consumer2 = _abstractFactory.CrearPersonaje("Gato"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
+        var audioChannelController = new AudioChanelContainerController(_audioChannelContainerView);
+        audioChannelController.DispatchAudio(_audioConfig);
+        AudioManager.Instance.SetAudioChannel(audioChannelController);
     }
+        //var consumer2 = _abstractFactory.CrearPersonaje("Gato"); //TODO: CAMBIAR LA LOGICA DE CUANDO SE INICIE LA PARTIDA INSTANCIAR LOS RESPECTIVOS PERSONAJES
 
     public void EfectoSlowMotion()
     {

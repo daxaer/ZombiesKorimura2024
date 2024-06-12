@@ -25,9 +25,10 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     [SerializeField] protected private NavMeshAgent agent;
     [SerializeField] protected private Vector3 impact;
     [SerializeField] protected private float KnockbackStrengh;
+    [SerializeField] protected private AudioConfig[] audios;
     //protected private EnemyStatesConfiguration _enemyStatesConfiguration;
     //protected private TargetFinder _targetsFinder;
-    
+
     public void  SetEnemyLife(float lifeMultiplier)
     {
         Debug.Log("Enemi life" + _enemyLife); 
@@ -46,6 +47,7 @@ public abstract class Enemy : RecyclableObject, Damageable, ITarget//, Interface
     public virtual void UseEventEnemyDeadEvent()
     {
         EnemyDeadEvent?.Invoke();
+        PuntuacionManager.Instance.SetEnemigosDerrotados();
         _loot.SpawnLootProbability();
     }
 

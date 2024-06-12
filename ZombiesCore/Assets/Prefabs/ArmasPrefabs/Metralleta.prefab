@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _balaSpawnReference: {fileID: 976570968429548283}
   _idArma: 1001
-  _velocidadDisparo: 0.3
+  _velocidadDisparo: 0.08
   _bala: {fileID: 6768786369264024079, guid: 160ee737309421648ad2784c6e9e7f0f, type: 3}
   _descripcion: Metralleta
   RequiereNivel: 0
@@ -196,3 +196,6 @@ MonoBehaviour:
   _siguienteDisparo: 0
   _perdigones: 0
   _damageWeapon: 6
+  audioDisparo: {fileID: 11400000, guid: 09951206787063148b7bd098e515aeef, type: 2}
+  audioRecargar: {fileID: 11400000, guid: 379674be2dff67646985be3ed0fe0798, type: 2}
+  audioRecargarCompleta: {fileID: 11400000, guid: f795f7de2e9cbee46a0d736bd10611ea, type: 2}

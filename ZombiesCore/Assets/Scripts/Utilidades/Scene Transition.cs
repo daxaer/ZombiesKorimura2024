@@ -11,4 +11,8 @@ public class SceneTransition : MonoBehaviour
     {
         Transition.LoadLevel(scene, duration, color);
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

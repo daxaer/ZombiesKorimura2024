@@ -11,6 +11,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI currentRoundText;
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject gameOver;
+    [SerializeField] private Personaje _player;
+    private int _currentRound;
     public void Start()
     {
         UpdateCurrentRound(1);
@@ -28,7 +30,9 @@ public class UIManager : Singleton<UIManager>
     public void UpdateCurrentRound(int currentRound)
     {
         currentRoundText.text = "Round: " + currentRound;
+        _currentRound = currentRound;
     }
+    public int CurrentRound { get => _currentRound; set => _currentRound = value; }
 
     public void UpdateMoney(int money)
     {
@@ -38,12 +42,16 @@ public class UIManager : Singleton<UIManager>
     public void OpenGameOver()
     {
         gameOver.SetActive(true);
-        StartCoroutine("ReturnMenu");
     }
 
-    IEnumerator ReturnMenu()
+    public void SetPlayer(Personaje personaje)
     {
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(0);
+        _player = personaje;
     }
+    public void UpdatePlayerMoney(int money)
+    {
+        _player.AddMoney(money);
+    }
+
+    
 }

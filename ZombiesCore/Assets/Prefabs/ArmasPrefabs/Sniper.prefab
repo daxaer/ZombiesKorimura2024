@@ -148,6 +148,9 @@ MonoBehaviour:
   _siguienteDisparo: 0
   _perdigones: 0
   _damageWeapon: 35
+  audioDisparo: {fileID: 11400000, guid: 12de17caad10c4e4baa107dc6ba09b20, type: 2}
+  audioRecargar: {fileID: 11400000, guid: 379674be2dff67646985be3ed0fe0798, type: 2}
+  audioRecargarCompleta: {fileID: 11400000, guid: f795f7de2e9cbee46a0d736bd10611ea, type: 2}
 --- !u!1 &8184375675393646287
 GameObject:
   m_ObjectHideFlags: 0

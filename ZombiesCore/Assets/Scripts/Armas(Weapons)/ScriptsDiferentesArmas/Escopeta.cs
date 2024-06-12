@@ -10,6 +10,7 @@ public class Escopeta : DetallesArma
         Recargando = true;
         CursorManager.Instance.Reloading(TiempoRecarga);
         yield return new WaitForSeconds(TiempoRecarga);
+        AudioManager.Instance.PlayAudio3D(audioRecargar, transform);
         if (MaxCharger >= CurrentAmmo)
         {
             CurrentCharger = CurrentAmmo;
@@ -27,6 +28,7 @@ public class Escopeta : DetallesArma
         SiquienteDisparo = Time.time + VelocidadDisparo;
         Recargando = false;
         Debug.Log("recargaCompletada");
+        AudioManager.Instance.PlayAudio3D(audioRecargarCompleta, transform);
         CursorManager.Instance.DefaultCursor();
         CancelInvoke(nameof(RecargaAutomatica));
     }
@@ -45,6 +47,7 @@ public class Escopeta : DetallesArma
             Debug.Log("i");
             _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
         }
+        AudioManager.Instance.PlayAudio3D(audioDisparo, transform);
         CurrentCharger--;
         UIManager.Instance.UpdateChargerAmmo(MaxCharger, CurrentCharger);
         Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);

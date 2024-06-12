@@ -11,13 +11,21 @@ public class RegistroUsuario : MonoBehaviour
     [SerializeField] private TMP_InputField edadInput;
     [SerializeField] private GameObject panelError;
     [SerializeField] private TextMeshProUGUI mensajeText;
-    [SerializeField] private string urlRegistro = "http://zombies.atwebpages.com/zombies/registro.php";
+    [SerializeField] private string urlRegistro = "http://localhost/zombie/registrar_usuario.php";
+    private bool usuarioregistrado;
 
     public void RegistrarUsuario()
     {
         string nombreUsuario = nombreUsuarioInput.text;
         string password = passwordInput.text;
         string edad = edadInput.text;
+
+        if (!int.TryParse(edad, out int age))
+        {
+            mensajeText.text = "Error: La edad debe ser un numero.";
+            return;
+        }
+
         StartCoroutine(EnviarRegistro(nombreUsuario, password, edad));
     }
 
@@ -34,14 +42,26 @@ public class RegistroUsuario : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                panelError.GetComponent<Image>().color = Color.red;
-                Debug.LogError("Error de conexión: " + www.error);
+                mensajeText.text = "Error de conexiï¿½n: " + www.error;
+                StartCoroutine("Mensaje");
             }
             else
             {
-                panelError.GetComponent<Image>().color = Color.green;
                 mensajeText.text = www.downloadHandler.text;
+                usuarioregistrado = true;
+                StartCoroutine("Mensaje");
             }
+        }
+    }
+    IEnumerator Mensaje()
+    {
+       
+        panelError.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        panelError.SetActive(false);
+        if (usuarioregistrado)
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

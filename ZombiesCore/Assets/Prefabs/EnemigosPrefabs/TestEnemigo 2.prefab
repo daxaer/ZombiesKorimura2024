@@ -113,6 +113,14 @@ MonoBehaviour:
   agent: {fileID: 0}
   impact: {x: 0, y: 0, z: 0}
   KnockbackStrengh: 0
+  audios:
+  - {fileID: 11400000, guid: a40c4e81088f83640a025601ace5dba9, type: 2}
+  - {fileID: 11400000, guid: 11e63afd782ecd646a12ba735d68e7b2, type: 2}
+  - {fileID: 11400000, guid: cd9ff975cc712f741aa209d59ae3bce8, type: 2}
+  - {fileID: 11400000, guid: 5d2e9db93cfd6a54ebcffc0d5a8a8cac, type: 2}
+  - {fileID: 11400000, guid: c37f358946ad41449b36a35bc53ea57d, type: 2}
+  - {fileID: 11400000, guid: 8cf6f87233b6db5478962ffef290fa1d, type: 2}
+  - {fileID: 11400000, guid: cadbf734e0348b64b862f989a1f85ebb, type: 2}
   stillThreshold: 0.05
 --- !u!114 &1852641971571155209
 MonoBehaviour:

@@ -10,6 +10,8 @@ public class InteractuablePuerta : Interactuable
     [SerializeField] private GameObject UI;
     [SerializeField] private TextMeshProUGUI _priceText;
     [SerializeField] private Animator[] _animation;
+    [SerializeField] private AudioConfig audioSucces;
+    [SerializeField] private AudioConfig audioFailed;
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class InteractuablePuerta : Interactuable
         var dineroJugador = _personaje._statsPersonaje._dineroActual;
         if (dineroJugador >= _precioDesbloqueoPuerta && _puertaCerrada)
         {
+            AudioManager.Instance.PlayAudio2D(audioSucces);
             unlockSpawn();
             _personaje._statsPersonaje._dineroActual -= _precioDesbloqueoPuerta;
             UIManager.Instance.UpdateMoney(_personaje._statsPersonaje._dineroActual);
@@ -38,6 +41,10 @@ public class InteractuablePuerta : Interactuable
             this.gameObject.GetComponent<Animator>().enabled = true;
             UI.gameObject.GetComponent<Animator>().Play("Close");
             _puertaCerrada = false;
+        }
+        else if(dineroJugador < _precioDesbloqueoPuerta)
+        {
+            AudioManager.Instance.PlayAudio2D(audioFailed);
         }
     }
     private void unlockSpawn()

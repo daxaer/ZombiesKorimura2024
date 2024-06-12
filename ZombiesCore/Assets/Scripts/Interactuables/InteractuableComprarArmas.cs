@@ -1,3 +1,4 @@
+using Audio;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,8 @@ public class InteractuableComprarArmas : Interactuable
     [SerializeField] private DetallesArma _arma;
     [SerializeField] private int _idArma = 0;
     private FactoriaArmas _factoriaArmas;
+    [SerializeField] private AudioConfig audioSucces;
+    [SerializeField] private AudioConfig audioFailed;
 
     public FactoriaArmas FactoriaArmas => _factoriaArmas;
     public void ConfigurarFactoriaArma(FactoriaArmas factoriaArmas)
@@ -32,10 +35,14 @@ public class InteractuableComprarArmas : Interactuable
         Debug.Log("interactuando comprar armas");
         if(_personaje._statsPersonaje._dineroActual >= _precioArma)
         {
-            Debug.Log("interactuando comprar armas");
+            AudioManager.Instance.PlayAudio2D(audioSucces);
             _personaje._statsPersonaje._dineroActual -= _precioArma;
             UIManager.Instance.UpdateMoney(_personaje._statsPersonaje._dineroActual);
             AsignarArma();
+        }
+        else
+        {
+            AudioManager.Instance.PlayAudio2D(audioFailed);
         }
     }
     private void AsignarArma()

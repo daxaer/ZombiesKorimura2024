@@ -5,6 +5,7 @@ using System.Reflection.Emit;
 
 public class FollowBehaviour : StateMachineBehaviour
 {
+    [SerializeField] Personaje personaje;
     private NavMeshAgent agent;
     private Rigidbody rb;
     private Enemy enemi;
@@ -13,7 +14,7 @@ public class FollowBehaviour : StateMachineBehaviour
     float movimientoY;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        personaje = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
         playerPosicion = GameObject.FindGameObjectWithTag("Player").transform;
         agent = animator.GetComponent<NavMeshAgent>();
         enemi = animator.GetComponent<Enemy>();
@@ -32,7 +33,7 @@ public class FollowBehaviour : StateMachineBehaviour
             agent.SetDestination(playerPosicion.position);
             var distancia = animator.transform.position - playerPosicion.transform.position;
             var distanciaAPlayer = distancia.magnitude;
-            if (distanciaAPlayer < 1)
+            if (distanciaAPlayer < 1 && !personaje.Muerto)
             {
                 agent.enabled = false;
                 animator.SetTrigger("atack");

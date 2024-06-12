@@ -12,7 +12,14 @@ public class Zombie : Enemy
         EncontrarEnemigoMasCercano.Instance.AddEnemigo(this);
 
     }
-
+    public override void OnEnable()
+    {
+        StartCoroutine("Quejidos");
+    }
+    private void OnDisable()
+    {
+        StopCoroutine("Quejidos");
+    }
     public override void DoDamage(int damage)
     {
         _enemyLife -= damage;
@@ -22,6 +29,7 @@ public class Zombie : Enemy
             //{
             //    StopCoroutine(knockbackCoroutine); // Detiene la corrutina
             //}
+            UIManager.Instance.UpdatePlayerMoney(100);
             UseEventEnemyDeadEvent();
             Reciclar();
         }
@@ -38,7 +46,17 @@ public class Zombie : Enemy
         getKnockback = false;
     }
 
-   
+    IEnumerator Quejidos()
+    {
+        float random = Random.Range(0, 50);
+        yield return new WaitForSeconds(random);
+        int audio = Random.Range(0, audios.Length);
+        AudioManager.Instance.PlayAudio3D(audios[audio], transform);
+        StartCoroutine("Quejidos");
+    }
+
+
+
     //private IEnumerator KnockBack(Vector3 force)
     //{
     //    yield return null;

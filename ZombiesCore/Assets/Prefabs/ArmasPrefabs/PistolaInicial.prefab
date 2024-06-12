@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _balaSpawnReference: {fileID: 5367359254839393810}
   _idArma: 1000
-  _velocidadDisparo: 0.1
+  _velocidadDisparo: 0.2
   _bala: {fileID: 6768786369264024079, guid: 160ee737309421648ad2784c6e9e7f0f, type: 3}
   _descripcion: Pistola
   RequiereNivel: 0
@@ -148,6 +148,9 @@ MonoBehaviour:
   _siguienteDisparo: 0
   _perdigones: 0
   _damageWeapon: 15
+  audioDisparo: {fileID: 11400000, guid: 112e400f7ca07a946960fb2a62396676, type: 2}
+  audioRecargar: {fileID: 11400000, guid: 379674be2dff67646985be3ed0fe0798, type: 2}
+  audioRecargarCompleta: {fileID: 11400000, guid: f795f7de2e9cbee46a0d736bd10611ea, type: 2}
 --- !u!1 &8184375675393646287
 GameObject:
   m_ObjectHideFlags: 0

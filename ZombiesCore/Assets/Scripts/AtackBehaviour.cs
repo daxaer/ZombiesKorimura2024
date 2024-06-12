@@ -3,15 +3,22 @@ using UnityEngine.AI;
 
 public class AtackBehaviour : StateMachineBehaviour
 {
+    [SerializeField] Personaje personaje;
     [SerializeField] Transform playerPosicion;
     [SerializeField] private int _damageToApply = 1;
+    [SerializeField] private AudioConfig audio;
     private NavMeshAgent agent;
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        personaje = GameObject.FindGameObjectWithTag("Player").GetComponent<Personaje>();
         playerPosicion = GameObject.FindGameObjectWithTag("Player").transform;
         var isDamagaeble = playerPosicion.GetComponent<Damageable>();
         isDamagaeble?.DoDamage(_damageToApply);
+        if(!personaje.Muerto) 
+        {
+            AudioManager.Instance.PlayAudio3D(audio, playerPosicion);
+        }
         agent = animator.GetComponent<NavMeshAgent>();
 
         Vector3 agentPosition = animator.GetComponent<Transform>().position;

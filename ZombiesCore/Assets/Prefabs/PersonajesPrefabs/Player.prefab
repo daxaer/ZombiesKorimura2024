@@ -197,8 +197,8 @@ MonoBehaviour:
   _statsPersonaje:
     _vidaMax: 4
     _vidaActual: 0
-    _velocidadMax: 4
-    _velocidadMovimiento: 3
+    _velocidadMax: 8
+    _velocidadMovimiento: 5
     _dineroActual: 0
     _dineroInicial: 500
     _moneyMultiplier: 0

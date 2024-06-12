@@ -35,6 +35,9 @@ public abstract class DetallesArma : MonoBehaviour, InterfaceArma
     [SerializeField] private float _perdigones;
 
     [SerializeField] private int _damageWeapon;
+    [SerializeField] public AudioConfig audioDisparo;
+    [SerializeField] public AudioConfig audioRecargar;
+    [SerializeField] public AudioConfig audioRecargarCompleta;
 
     public int IdArma { get => _idArma; }
     public int DamageWeapon { get => _damageWeapon; }

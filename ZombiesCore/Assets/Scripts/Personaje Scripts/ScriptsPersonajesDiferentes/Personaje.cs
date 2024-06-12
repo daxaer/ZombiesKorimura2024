@@ -131,6 +131,11 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
     public abstract void ConfigurarFactoriaGameplay(FactoriaMainGameplay factoriaActualGameplay);
     public abstract void HandlePersonajeAction();
 
+    
+    private bool _muerto;
+
+    public bool Muerto{get { return _muerto; }set { _muerto = value; }}
+
     public ArmaSystem ArmaSystem { get { return _armaSystem; } }
 
     public void DoDamage(int damage)
@@ -138,14 +143,16 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
         if (_statsPersonaje.VidaActual == 0)
             return;
         _statsPersonaje.VidaActual -= damage;
-        if (_statsPersonaje.VidaActual <= 0)
+        if (_statsPersonaje.VidaActual <= 0 && !_muerto)
         {
             Debug.Log("Muerto");
-
+            _muerto = true;
             StopCoroutine("Recuperacion");
             _statsPersonaje.VelocidadMovimiento = 0;
             CursorManager.Instance.Damage(_statsPersonaje.VidaActual);
             UIManager.Instance.OpenGameOver();
+            PuntuacionManager.Instance.SetFinalPartida(DateTime.Now);
+            PuntuacionManager.Instance.SetPartidaActual();
         }
         else
         {
@@ -165,6 +172,8 @@ public abstract class Personaje : MonoBehaviour, Damageable, ITarget
     private void Start()
     {
         InitStats();
+        PuntuacionManager.Instance.SetInicioPartida(DateTime.Now);
+        _muerto = false;
     }
     private void InitStats()
     {

@@ -14,6 +14,7 @@ public class MetralletaTest : DetallesArma
         CursorManager.Instance.ActivarMira();
         _factoriaArmas.CrearBala(IdArma, _balaSpawnReference);
         CurrentCharger--;
+        AudioManager.Instance.PlayAudio3D(audioDisparo, transform);
         UIManager.Instance.UpdateChargerAmmo(MaxCharger,CurrentCharger);
         Invoke(nameof(RecargaAutomatica), TiempoRecargaAutomatica);
         if (CurrentCharger <= 0)
@@ -26,6 +27,7 @@ public class MetralletaTest : DetallesArma
         Debug.Log("recargando");
         Recargando = true;
         CursorManager.Instance.Reloading(TiempoRecarga);
+        AudioManager.Instance.PlayAudio3D(audioRecargar, transform);
         yield return new WaitForSeconds(TiempoRecarga);
         if (MaxCharger >= CurrentAmmo)
         {
@@ -44,6 +46,7 @@ public class MetralletaTest : DetallesArma
         SiquienteDisparo = Time.time + VelocidadDisparo;
         Recargando = false;
         Debug.Log("recargaCompletada");
+        AudioManager.Instance.PlayAudio3D(audioRecargarCompleta, transform);
         CursorManager.Instance.DefaultCursor();
         CancelInvoke(nameof(RecargaAutomatica));
     }
