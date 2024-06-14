@@ -12,18 +12,18 @@ public class LogOut : MonoBehaviour
 
     private void Awake()
     {
-        if(PlayerPrefs.GetInt("LoggedIn") == 1)
-        {
-            _usuario.text = "Usuario: " + PlayerPrefs.GetString("NombreUsuario");
-            actualizar.ActualizarSesion(PlayerPrefs.GetString("NombreUsuario"));
-            _login.SetActive(false);
-            _logOut.SetActive(true);
-        }
-        else
-        {
-            _login.SetActive(true);
-            _logOut.SetActive(false);
-        }
+        //if(PlayerPrefs.GetInt("LoggedIn") == 1)
+        //{
+        //    _usuario.text = "Usuario: " + PlayerPrefs.GetString("NombreUsuario");
+        //    actualizar.ActualizarSesion(PlayerPrefs.GetString("NombreUsuario"));
+        //    _login.SetActive(false);
+        //    _logOut.SetActive(true);
+        //}
+        //else
+        //{
+        //    _login.SetActive(true);
+        //    _logOut.SetActive(false);
+        //}
     }
     public void CerrarSesion()
     {

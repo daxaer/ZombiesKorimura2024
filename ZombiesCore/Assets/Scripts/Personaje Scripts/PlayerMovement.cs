@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private float _delayRun;
     private float _currentStamina;
     private bool _estaminaInfinita;
+
+    [SerializeField]private Animator _animator;
     public Vector3 AverageVelocity
     {
         get
@@ -56,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         }
         historicalVelocities.Enqueue(_playerRigidbody.velocity);
         LastPositionTime = Time.time;
+
+        _animator.SetFloat("x", _myDirection.x);
+        _animator.SetFloat("y", _myDirection.z);
+        _animator.SetFloat("velocidad", _playerRigidbody.velocity.magnitude);
 
     }
 
@@ -115,10 +121,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void AsignarDireccion(Vector2 direccion)
     {
-
-        //Vector3 direccionCorregidaRespectoACamara = transform.forward * direccion.y + transform.right * direccion.x;
-        //Debug.Log(direccionCorregidaRespectoACamara.y;
-
         _myDirection.x = direccion.x;
         _myDirection.z = direccion.y;
     }
